@@ -1,5 +1,15 @@
+/* 
+	light blue:	#DBF0EF
+	Medium blue: 	#97DAE8
+	Light purple: #C0C8F0
+	White: #FAF9F9
+	Black: #0A0909
+*/
+
 html {
 	font-family: 'Montserrat', sans-serif;
+	color: #0A0909;
+	background-color: #FAF9F9;
 }
 
 h1, 
