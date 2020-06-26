@@ -17,12 +17,12 @@ class App extends Component {
 			url: "https://app.ticketmaster.com/discovery/v2/events.json",
 			params: {
 				apikey: "Mh0RGGBfkgADAASrXM25WfhUueio9rgV",
-				// genre: "music",
-				// name: "Madonna"
+
 			}
 		}).then(response => {
 			const res = response.data._embedded.events;
-			console.log(res)
+			
+			console.log(response)
 			// Map over response to create obj with needed data
 			const resEvent = res.map( (data) => {
 				// To get ID
@@ -45,23 +45,20 @@ class App extends Component {
 				
 				// To get Date
 				const dateStr = data.dates.start.localDate;
+
 				const dateConvert = d => {
-					const unixEpochTime = d;
-					const newDate = new Date(unixEpochTime);
-					const dateFull = new Date(newDate.setTime(newDate.getTime() + 1 * 86400000));
+					let newDate = new Date(d);
+					
+					newDate = new Date(newDate.setTime(newDate.getTime() + 1 * 86400000));
 
-					const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+					const date = newDate.toDateString();
 
-					const dateMonth = dateFull.getMonth();
-					const dateDay = dateFull.getDate();
-
-					const date = `${monthNames[dateMonth]} ${dateDay}`;
-					console.log(date)
 					return date;
 				};
 
-				const dateNum = dateConvert(dateStr);
+				const dateFormat = dateConvert(dateStr);
 
+				const dateNum = Date.parse(dateStr);
 
 				// To get image
 				const imgUrl = data.images[0].url;
@@ -85,11 +82,12 @@ class App extends Component {
 					},
 					date: {
 						dateStr,
-						dateNum
+						dateNum, //
+						dateFormat
 					},
 					imgUrl,
 					tickets,
-					price
+					price //
 				})
 				
 			})
