@@ -30,6 +30,7 @@ class App extends Component {
 				
 				// To get the name of the artist
 				const name = data.name;
+				
 				const artist = data._embedded.attractions.map(art => {
 					return art.name
 				});
@@ -38,14 +39,17 @@ class App extends Component {
 				// To get the venue
 				const venue =  data._embedded.venues[0].name;
 
-				// To get city, state, and City, State combo
+				// To get city, country, and City, Country combo as some entries will not have a state value (see international concerts)
 				const city = data._embedded.venues[0].city.name;
+				
 				const country = data._embedded.venues[0].country.name;
+				
 				const cityCountry = `${city}, ${country}`;
 				
 				// To get Date
 				const dateStr = data.dates.start.localDate;
 
+				// Function to convert date from YYYY-MM-DD format to Weekday Month Day Year format
 				const dateConvert = d => {
 					let newDate = new Date(d);
 					
@@ -82,7 +86,7 @@ class App extends Component {
 					},
 					date: {
 						dateStr,
-						dateNum, //
+						dateNum,
 						dateFormat
 					},
 					imgUrl,
