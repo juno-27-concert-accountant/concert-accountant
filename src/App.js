@@ -1,28 +1,17 @@
 import React, { Component } from 'react';
-// import firebase from './firebase';
-import './App.css';
+import firebase from './firebase';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import axios from 'axios';
+import Login from './Login';
 
 class App extends Component {
-	componentDidMount() {
-		axios({
-			url: "https://app.ticketmaster.com/discovery/v2/events.json",
-			params: {
-				apikey: "Mh0RGGBfkgADAASrXM25WfhUueio9rgV",
-				type: "music",
-				
-			}
-		}).then(response => {
-			const res = response.data._embedded.events;
-			console.log(res)
-		})
-	}
-	
 	render() {
 		return (
-			<div className="App">
-			
-			</div>
+			<Router>
+				<div className="App">
+					<Login />
+				</div>
+			</Router>
 		);
 	}
 }
