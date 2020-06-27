@@ -50,7 +50,7 @@ class Login extends Component {
                 userNew: isUserNew,
             })
             // const dbRef = firebase.database().ref();
-            // dbRef.push(this.state);
+            // dbRef.push(this.state); (will be modified to only push the login data)
             this.setState({
                 userNew: 'true',
                 userName: '',
