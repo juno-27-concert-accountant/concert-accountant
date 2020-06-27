@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import ConcertDetailsPopUp from './ConcertDetailsPopUp.js';
+import { Link } from 'react-router-dom';
 
 class ConcertCard extends Component {
 	constructor() {
@@ -8,6 +10,7 @@ class ConcertCard extends Component {
 		this.state = {
 			currentCity: "Toronto",
 			event: [],
+			modalEvent: "",
 		};
 	}
 
@@ -79,7 +82,6 @@ class ConcertCard extends Component {
 			const tickets = data.url;
 
 			// To get price
-
 			const price = this.collectPrice(data);
 
 			// Return obj to push to this.state.event
@@ -120,7 +122,7 @@ class ConcertCard extends Component {
 			}
 		}).then(response => {
 			const res = response.data._embedded.events;
-			console.log(res)
+			
 			const resEvent = this.mapToAppData(res);
 
 			this.setState({
@@ -129,31 +131,32 @@ class ConcertCard extends Component {
 		})
 	}
 
+
+
 	render() {
 		return (
 			<>
 			{ this.state.event.map( entry => {
 				return (
-					<div className="concertCell">
-						<div className="imageContainer">
-							<img src={entry.imgUrl} alt={entry.name}/>
+					<div key={entry.eventID} className="concertCell">
+						<div eventID={entry.eventID} className="imageContainer">
+							<Link to={`/event/${entry.eventID}`}>
+								<img src={entry.imgUrl} alt={entry.name}/>
+							</Link>
 						</div>
 						<div className="concertInfo">
 							<h2>{entry.name}</h2>
 							<h3>@ {entry.venue}</h3>
-							{/* {entry.artist.map(artist => {
-								return(
-									<p>{artist}</p>
-								)
-							})} */}
 							<p>{entry.date.dateFormat}</p>
 
 						</div>
+
+						
 					</div>
 			)})}
 			</>
 		)
-	}
-}
+	
+}}
 
 export default ConcertCard;
