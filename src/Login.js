@@ -1,19 +1,30 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 
 class Login extends Component {
     constructor() {
         super();
         this.state = {
             signedIn: false,
-            userNew: 'true',
+            userNew: true,
             userName: '',
             userEmail: '',
             userPassword: '',
             userCity: '',
-            error: ''
+            error: {
+                email: '',
+                username: '',
+                password: '',
+                city: '',
+
+            }
         }
     }
-    
+    handleRadioChange = (e) => {
+        const isUserNew = e.target.value === "true" ? true : false;
+            this.setState({
+                userNew: isUserNew,
+            })
+    }
     handleInputChange = (e) => {
         this.setState({
             [e.target.name]: e.target.value
@@ -41,14 +52,10 @@ class Login extends Component {
         } else {
             // call function to set App state to show user is logged in
             // call function to hide landing page
-            const isUserNew = this.state.userNew === "true" ? true : false;
-            this.setState({
-                userNew: isUserNew,
-            })
             // const dbRef = firebase.database().ref();
             // dbRef.push(this.state); (will be modified to only push the login data)
             this.setState({
-                userNew: 'true',
+                userNew: true,
                 userName: '',
                 userEmail: '',
                 userPassword: '',
@@ -62,23 +69,30 @@ class Login extends Component {
       const {userNew, userName, userEmail, userPassword, userCity} = this.state
         return(
             <div className="Form">
-                <h4>Login</h4>
                 <form>
-                    <fieldset onChange={this.handleInputChange} value={userNew}>
-                        <input className="sr-only" type="radio" name="userNew" id="logIn" value="false"/>
-                        <label className="form__radio" htmlFor="signUp">Sign Up</label>
-                        <input className="sr-only" type="radio" name="userNew" id="signUp" value="true"/>
+                    <fieldset onChange={this.handleRadioChange} value={userNew}>
                         <label className="form__radio" htmlFor="logIn">Log In</label>
+                        <input type="radio" name="userNew" id="logIn" value="false"/>
+                        <label className="form__radio" htmlFor="signUp">Sign Up</label>
+                        <input type="radio" name="userNew" id="signUp" value="true"/>
                     </fieldset>
-                    <label htmlFor="userName"></label>
+                    <label htmlFor="userName">Username</label>
                     <input onChange={this.handleInputChange} type="text" name="userName" value={userName}/>
-                    <label htmlFor="userEmail"></label>
-                    <input onChange={this.handleInputChange} type="text" name="userEmail" value={userEmail}/>
-                    <label htmlFor="userPassword"></label>
+                    {userNew ? 
+                        <Fragment>
+                            <label htmlFor="userEmail">Email address</label>
+                            <input onChange={this.handleInputChange} type="text" name="userEmail" value={userEmail}/>
+                        </Fragment>: 
+                        null}
+                    <label htmlFor="userPassword">Password</label>
                     <input onChange={this.handleInputChange} type="text" name="userPassword" value={userPassword}/>
-                    <label htmlFor="userCity"></label>
-                    <input onChange={this.handleInputChange} type="text" name="userCity" id={userCity}/>
-                    <button>{userNew === "true" ? "Sign Up" : "Login"}</button>
+                    {userNew ? 
+                    <Fragment>
+                        <label htmlFor="userCity">Home city</label>
+                        <input onChange={this.handleInputChange} type="text" name="userCity" id={userCity}/>
+                    </Fragment> :
+                    null}
+                    <button onClick={this.handleSubmit}>{userNew ? "Sign Up" : "Login"}</button>
                 </form>
             </div>
         )
