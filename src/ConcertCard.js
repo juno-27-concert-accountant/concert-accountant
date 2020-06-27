@@ -135,8 +135,19 @@ class ConcertCard extends Component {
 			{ this.state.event.map( entry => {
 				return (
 					<div className="concertCell">
-						<div className='imageContainer'>
+						<div className="imageContainer">
 							<img src={entry.imgUrl} alt={entry.name}/>
+						</div>
+						<div className="concertInfo">
+							<h2>{entry.name}</h2>
+							<h3>@ {entry.venue}</h3>
+							{/* {entry.artist.map(artist => {
+								return(
+									<p>{artist}</p>
+								)
+							})} */}
+							<p>{entry.date.dateFormat}</p>
+
 						</div>
 					</div>
 			)})}
