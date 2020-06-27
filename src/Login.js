@@ -13,15 +13,11 @@ class Login extends Component {
             error: ''
         }
     }
+    
     handleInputChange = (e) => {
         this.setState({
             [e.target.name]: e.target.value
         })
-    }
-    handleCheck = () => {
-        this.setState(prevState => ({
-            userNew: !prevState.userNew
-          }));
     }
 
     handleSubmit = (e) => {
