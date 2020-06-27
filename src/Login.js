@@ -4,6 +4,7 @@ class Login extends Component {
     constructor() {
         super();
         this.state = {
+            signedIn: false,
             userNew: 'true',
             userName: '',
             userEmail: '',
@@ -42,8 +43,8 @@ class Login extends Component {
                 error: "Please enter your city"
             })
         } else {
-            // call function to set app state to show user is logged in
-            // call function to hide 
+            // call function to set App state to show user is logged in
+            // call function to hide landing page
             const isUserNew = this.state.userNew === "true" ? true : false;
             this.setState({
                 userNew: isUserNew,
