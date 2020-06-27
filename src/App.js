@@ -1,13 +1,22 @@
 import React, { Component } from 'react';
-import './App.css';
+
+import firebase from './firebase';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import axios from 'axios';
+import Login from './Login';
+
 
 class App extends Component {
 	render() {
 		return (
-			<div className="App">
-				<p>Hello</p>
-			</div>
-		)
+
+			<Router>
+				<div className="App">
+					<Login />
+				</div>
+			</Router>
+		);
+
 	}
 }
 
