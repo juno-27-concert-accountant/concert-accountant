@@ -31,11 +31,8 @@ class ConcertDetailsPopUp extends Component {
 				segment: "music",
 			}
 		}).then(response => {			
+			
 			const res = response.data;
-
-			const artist = res._embedded.attractions.map(member => {
-				return (member.name)
-			})
 			
 			const dateStr = res.dates.start.localDate;
 			const dateNum = Date.parse(dateStr);
@@ -45,17 +42,17 @@ class ConcertDetailsPopUp extends Component {
 				modalEvent: {
 					eventID: res.id, 
 					name: res.name, 
-					artist, 
 					venue: res._embedded.venues[0].name, 
 					location: { 
 						city: res._embedded.venues[0].city.name, 
 						country: res._embedded.venues[0].country.name,
 					},
-					date: {
-						dateStr,
-						dateNum,
-						dateFormat,
-					},
+					// date: {
+					// 	dateStr,
+					// 	dateNum,
+					// 	dateFormat,
+					// },
+					date: dateFormat,
 					status: res.dates.status.code,
 					imgUrl: res.images[0].url,
 					tickets: res.url,
@@ -77,13 +74,19 @@ class ConcertDetailsPopUp extends Component {
 					</div>
 					
 					<div>
-						<h1>{this.state.modalEvent.name}</h1>
-						<h2> @ {this.state.modalEvent.venue}</h2>
+						<>
+							<h1>{this.state.modalEvent.name}</h1>
+							<h2> @ {this.state.modalEvent.venue}</h2>
+							<h3>{this.state.modalEvent.date}</h3>
+						</>
+						<button>Add to List</button>
+						<button>Add to Wishlist</button>
 
-						
 						<a href={this.state.modalEvent.tickets}>
 							<button>Buy Tickets</button>
 						</a>
+
+
 						
 					</div>
 				</div>

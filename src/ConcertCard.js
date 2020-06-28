@@ -11,6 +11,8 @@ class ConcertCard extends Component {
 			currentCity: "Toronto",
 			event: [],
 			modalEvent: "",
+			userPrice: "",
+			filterPrice: "",
 		};
 	}
 
@@ -54,10 +56,6 @@ class ConcertCard extends Component {
 			// To get the name of the artist
 			const name = data.name;
 			
-			const artist = data._embedded.attractions.map(art => {
-				return art.name
-			});
-			
 			// To get the venue
 			const venue =  data._embedded.venues[0].name;
 
@@ -88,7 +86,6 @@ class ConcertCard extends Component {
 			return ({
 				eventID,
 				name,
-				artist,
 				venue,
 				location: {
 					city,
@@ -115,9 +112,8 @@ class ConcertCard extends Component {
 			responseType: "JSON",
 			params: {
 				apikey: "Mh0RGGBfkgADAASrXM25WfhUueio9rgV",
-				// type: "event",
 				locale: "en-us",
-				segment: "music",
+				segmentName: "music",
 				city: this.state.currentCity,
 			}
 		}).then(response => {
@@ -131,29 +127,27 @@ class ConcertCard extends Component {
 		})
 	}
 
-
-
 	render() {
 		return (
 			<>
 			{ this.state.event.map( entry => {
 				return (
 					<div key={entry.eventID} className="concertCell">
-						<div eventID={entry.eventID} className="imageContainer">
+						<div className="imageContainer">
+
 							<Link to={`/event/${entry.eventID}`}>
-								<img src={entry.imgUrl} alt={entry.name}/>
+								<img src={entry.imgUrl} alt={entry.name} />
 							</Link>
+
 						</div>
 						<div className="concertInfo">
 							<h2>{entry.name}</h2>
 							<h3>@ {entry.venue}</h3>
 							<p>{entry.date.dateFormat}</p>
-
 						</div>
-
-						
 					</div>
 			)})}
+
 			</>
 		)
 	
