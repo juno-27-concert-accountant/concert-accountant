@@ -4,6 +4,7 @@ import firebase from './firebase';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import axios from 'axios';
 import Login from './Login';
+import Budget from './Budget.js';
 
 
 class App extends Component {
@@ -14,6 +15,7 @@ class App extends Component {
 				<div className="App">
 					<Login />
 				</div>
+				<Budget />
 			</Router>
 		);
 
