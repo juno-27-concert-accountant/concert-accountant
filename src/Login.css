@@ -1,0 +1,39 @@
+form {
+    background-color: lightblue;
+}
+.form__container {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+}
+.form__space {
+    height: 1rem;
+}
+input {
+    border: 1px solid grey
+}
+.fieldError {
+    border: 1px solid red;
+}
+.fieldSuccess:focus {
+    border: 1px solid green;
+}
+fieldset {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.radio {
+    padding: 0.5rem;
+    width: 50%;
+    text-align: center;
+    border-bottom: none;
+    background-color: white;
+}
+.radio label {
+    display: block;
+    padding: 2rem;
+}
+.form--active {
+    background-color: lightblue;
+}
