@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
+import "./ConcertCard.css";
 
 class ConcertCard extends Component {
 	constructor() {
@@ -8,6 +10,10 @@ class ConcertCard extends Component {
 		this.state = {
 			currentCity: "Toronto",
 			event: [],
+			modalEvent: "",
+			filteredResults: [],
+			isFiltered: false,
+			filterPrice: "0",
 		};
 	}
 
@@ -27,17 +33,16 @@ class ConcertCard extends Component {
 			return ({
 				type: data.priceRanges[0].type,
 				currency: data.priceRanges[0].currency,
-				min: `$${data.priceRanges[0].min.toFixed(2)}`,
-				max: `$${data.priceRanges[0].max.toFixed(2)}`,
-				status: false,
+				min: `${data.priceRanges[0].min.toFixed(2)}`,
+				max: `${data.priceRanges[0].max.toFixed(2)}`,
+				
 			})
 		} else {
 			return ({
 				type: false,
 				currency: false,
-				min: false,
-				max: false,
-				status: "No ticket prices to show."
+				min: "No ticket prices to show.",
+				max: "No ticket prices to show.",
 			})
 		}
 	}
@@ -50,10 +55,6 @@ class ConcertCard extends Component {
 			
 			// To get the name of the artist
 			const name = data.name;
-			
-			const artist = data._embedded.attractions.map(art => {
-				return art.name
-			});
 			
 			// To get the venue
 			const venue =  data._embedded.venues[0].name;
@@ -73,20 +74,18 @@ class ConcertCard extends Component {
 			const dateNum = Date.parse(dateStr);
 
 			// To get image
-			const imgUrl = data.images[0].url;
+			const imgUrl = data.images[2].url;
 
 			// Link to purchase tickets
 			const tickets = data.url;
 
 			// To get price
-
 			const price = this.collectPrice(data);
 
 			// Return obj to push to this.state.event
 			return ({
 				eventID,
 				name,
-				artist,
 				venue,
 				location: {
 					city,
@@ -106,6 +105,86 @@ class ConcertCard extends Component {
 		return resEvent;
 	};
 	
+	handleChange(event) {
+		// let isFiltered = true;
+
+		// if (event.target.value === "0") {
+		// 	isFiltered = false;
+		// } else {
+		// 	isFiltered = true;
+		// }
+
+		this.filterResults(event.target.value);
+
+		this.setState({
+			filterPrice: parseFloat(event.target.value),
+			// isFiltered,
+		})
+	}
+
+	renderConcertCell(entry) {
+		return (
+					
+			<div key={entry.eventID} className="concertCell">
+				<div className="imageContainer">
+
+					<div className="concertStatus">
+						<i class="fas fa-ticket-alt"></i>
+					</div>
+
+					<Link to={`/event/${entry.eventID}`}>
+						<img src={entry.imgUrl} alt={entry.name} />
+					</Link>
+
+				</div>
+				<div className="concertInfo">
+					<h2>{entry.name}</h2>
+					<p>{entry.date.dateFormat}</p>
+					
+
+				</div>
+			</div>
+		)
+	}
+
+	filterResults() {
+		const eventCopy = this.state.event;
+		let price = parseFloat(this.state.filterPrice);
+
+		const filteredResults = eventCopy.filter((event) => {
+				const shouldFilter = parseFloat(event.price.min) <= parseFloat(price)
+
+				let val1 = parseFloat(event.price.min)
+				let val2 = parseFloat(price)
+				// console.log(`${shouldFilter}=>${val1}<=${val2}`)
+				return shouldFilter
+				// if (event.price.min <= price) {
+				// 	return event.price.min
+				// }
+		})
+		this.setState({
+			filteredResults,
+		})
+	}
+
+	showFiltered() {
+
+		let isFiltered = true;
+
+		if (this.state.filterPrice == "0") {
+			isFiltered = false;
+		} else {
+			isFiltered = true;
+		}
+
+		this.setState({
+			isFiltered,
+		})
+
+		this.filterResults();
+	}
+
+
 	componentDidMount() {
 		axios({
 			url: "https://app.ticketmaster.com/discovery/v2/events",
@@ -113,14 +192,13 @@ class ConcertCard extends Component {
 			responseType: "JSON",
 			params: {
 				apikey: "Mh0RGGBfkgADAASrXM25WfhUueio9rgV",
-				// type: "event",
 				locale: "en-us",
-				segment: "music",
+				segmentName: "music",
 				city: this.state.currentCity,
 			}
 		}).then(response => {
 			const res = response.data._embedded.events;
-			console.log(res)
+			
 			const resEvent = this.mapToAppData(res);
 
 			this.setState({
@@ -131,29 +209,30 @@ class ConcertCard extends Component {
 
 	render() {
 		return (
-			<>
-			{ this.state.event.map( entry => {
-				return (
-					<div className="concertCell">
-						<div className="imageContainer">
-							<img src={entry.imgUrl} alt={entry.name}/>
-						</div>
-						<div className="concertInfo">
-							<h2>{entry.name}</h2>
-							<h3>@ {entry.venue}</h3>
-							{/* {entry.artist.map(artist => {
-								return(
-									<p>{artist}</p>
-								)
-							})} */}
-							<p>{entry.date.dateFormat}</p>
+			<div>
+			<div className="budgetFilter">
+				<p>Filter results for your budget: </p>
+				<select value={this.state.filterPrice} onChange={(e) => this.handleChange(e)}>
+					<option value="0">All</option>
+					<option value="25">$25 or Less</option>
+					<option value="50">$50 or Less</option>
+					<option value="75">$75 or Less</option>
+					<option value="100">$100 or Less</option>
+				</select>
+				<button onClick={(e) => this.showFiltered(e)}>Filter</button>
+			</div>
+			<div className="concertCards">
+			
+			{
+				this.state.isFiltered === false 
+				? this.state.event.map(event => this.renderConcertCell(event)) 
+				: this.state.filteredResults.map(event => this.renderConcertCell(event)) 
+			}
 
-						</div>
-					</div>
-			)})}
-			</>
+			</div>
+			</div>
 		)
-	}
-}
+	
+}}
 
 export default ConcertCard;
