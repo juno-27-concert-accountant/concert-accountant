@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import Dashboard from './Dashboard';
 
 class Login extends Component {
     constructor() {
@@ -13,7 +14,8 @@ class Login extends Component {
             error: ''
         }
     }
-    
+     
+
     handleInputChange = (e) => {
         this.setState({
             [e.target.name]: e.target.value
