@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/concert-accountant/precache-manifest.c4937e6f5dff2ad8af54df7fe3a786c7.js"
+  "/concert-accountant/precache-manifest.07608a80fed8ddda6ff7694b9eacc1a9.js"
 );
 
 self.addEventListener('message', (event) => {
