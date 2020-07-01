@@ -34,12 +34,10 @@ class ConcertDetailsPopUp extends Component {
 				segment: "music",
 			}
 		}).then(response => {			
-			
 			const res = response.data;
 			
-			console.log(res);
 			const dateStr = res.dates.start.localDate;
-			const dateNum = Date.parse(dateStr);
+			// const dateNum = Date.parse(dateStr);
 			const dateFormat = this.dateConvert(dateStr)
 			
 			const artist = res._embedded.attractions.map(art => {
