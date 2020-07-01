@@ -121,10 +121,10 @@ class ConcertCard extends Component {
 			<div key={entry.eventID} className="concertCell">
 				<div className="imageContainer">
 
-					
-					
-					<Link to={`/events/${entry.eventID}`}>
-						<img src={entry.imgUrl} alt={entry.name} />
+
+
+					<Link to={`/event/${entry.eventID}`}>
+							<img src={entry.imgUrl} alt={entry.name} />
 					</Link>
 
 				</div>

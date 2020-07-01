@@ -6,7 +6,9 @@ import axios from 'axios';
 import Navbar from './Navbar.js';
 import Login from './Login.js';
 import ConcertDetailsPopUp from './ConcertDetailsPopUp.js';
+import Search from './Search.js';
 import ConcertCard from './ConcertCard.js';
+
 
 
 class App extends Component {
@@ -15,16 +17,14 @@ class App extends Component {
 
 			<Router basename="/">
 				<div className="App">
-					<Navbar />
-					<Route path="/login/" component={Login} />
+      		<Navbar />
 
+					<Search/>
+      		<Route path="/login/" component={Login} />
 					<Route exact path="/event/" component={ConcertCard} />
-					{/* <ConcertCard /> */}
 
-					{/* Show concert details 
-						:eventID
-					*/}
-					<Route path="/events/:eventID" component={ConcertDetailsPopUp} />
+					{/* Show concert details */}
+					<Route exact path="/event/:eventID" component={ConcertDetailsPopUp} />
 				</div>
 			</Router>
 		);
