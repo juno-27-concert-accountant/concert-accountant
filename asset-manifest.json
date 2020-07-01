@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/concert-accountant/static/css/main.11277e60.chunk.css",
+    "main.js": "/concert-accountant/static/js/main.1364a42c.chunk.js",
+    "main.js.map": "/concert-accountant/static/js/main.1364a42c.chunk.js.map",
+    "runtime-main.js": "/concert-accountant/static/js/runtime-main.cc4cdc34.js",
+    "runtime-main.js.map": "/concert-accountant/static/js/runtime-main.cc4cdc34.js.map",
+    "static/js/2.cedb7ca7.chunk.js": "/concert-accountant/static/js/2.cedb7ca7.chunk.js",
+    "static/js/2.cedb7ca7.chunk.js.map": "/concert-accountant/static/js/2.cedb7ca7.chunk.js.map",
+    "index.html": "/concert-accountant/index.html",
+    "precache-manifest.599172c6cc2659eb35dbe834db069382.js": "/concert-accountant/precache-manifest.599172c6cc2659eb35dbe834db069382.js",
+    "service-worker.js": "/concert-accountant/service-worker.js",
+    "static/css/main.11277e60.chunk.css.map": "/concert-accountant/static/css/main.11277e60.chunk.css.map",
+    "static/js/2.cedb7ca7.chunk.js.LICENSE.txt": "/concert-accountant/static/js/2.cedb7ca7.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.cc4cdc34.js",
+    "static/js/2.cedb7ca7.chunk.js",
+    "static/css/main.11277e60.chunk.css",
+    "static/js/main.1364a42c.chunk.js"
+  ]
+}
