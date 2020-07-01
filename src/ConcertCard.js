@@ -123,7 +123,7 @@ class ConcertCard extends Component {
 
 					
 					
-					<Link to={`/event/${entry.eventID}`}>
+					<Link to={`/events/${entry.eventID}`}>
 						<img src={entry.imgUrl} alt={entry.name} />
 					</Link>
 
