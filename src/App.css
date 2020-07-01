@@ -20,3 +20,9 @@ h5,
 h6 {
 	font-family: 'Maitree', serif;
 }
+
+.wrapper {
+	width: 90%;
+	max-width: 1500px;
+	margin: auto;
+}

@@ -41,8 +41,8 @@ class ConcertCard extends Component {
 			return ({
 				type: false,
 				currency: false,
-				min: "No ticket prices to show.",
-				max: "No ticket prices to show.",
+				min: "N/A",
+				max: "N/A",
 			})
 		}
 	}
@@ -98,27 +98,20 @@ class ConcertCard extends Component {
 					dateFormat
 				},
 				imgUrl,
-				tickets,
+				// tickets,
 				price,
 			});		
 		})
 		return resEvent;
 	};
-	
-	handleChange(event) {
-		// let isFiltered = true;
 
-		// if (event.target.value === "0") {
-		// 	isFiltered = false;
-		// } else {
-		// 	isFiltered = true;
-		// }
+	// Update this.state.filterPrice on select
+	handleChange(event) {
 
 		this.filterResults(event.target.value);
 
 		this.setState({
 			filterPrice: parseFloat(event.target.value),
-			// isFiltered,
 		})
 	}
 
@@ -128,10 +121,8 @@ class ConcertCard extends Component {
 			<div key={entry.eventID} className="concertCell">
 				<div className="imageContainer">
 
-					<div className="concertStatus">
-						<i class="fas fa-ticket-alt"></i>
-					</div>
-
+					
+					
 					<Link to={`/event/${entry.eventID}`}>
 						<img src={entry.imgUrl} alt={entry.name} />
 					</Link>
@@ -141,7 +132,11 @@ class ConcertCard extends Component {
 					<h2>{entry.name}</h2>
 					<p>{entry.date.dateFormat}</p>
 					
-
+					{
+						entry.price.min === 'N/A' 
+						? <p>No prices currently available.</p>
+						: <p>Prices starting as low as ${entry.price.min}</p>
+					}
 				</div>
 			</div>
 		)
@@ -154,21 +149,15 @@ class ConcertCard extends Component {
 		const filteredResults = eventCopy.filter((event) => {
 				const shouldFilter = parseFloat(event.price.min) <= parseFloat(price)
 
-				let val1 = parseFloat(event.price.min)
-				let val2 = parseFloat(price)
-				// console.log(`${shouldFilter}=>${val1}<=${val2}`)
 				return shouldFilter
-				// if (event.price.min <= price) {
-				// 	return event.price.min
-				// }
 		})
+
 		this.setState({
 			filteredResults,
 		})
 	}
 
 	showFiltered() {
-
 		let isFiltered = true;
 
 		if (this.state.filterPrice == "0") {
@@ -183,7 +172,6 @@ class ConcertCard extends Component {
 
 		this.filterResults();
 	}
-
 
 	componentDidMount() {
 		axios({
@@ -209,7 +197,7 @@ class ConcertCard extends Component {
 
 	render() {
 		return (
-			<div>
+			<div className="wrapper">
 			<div className="budgetFilter">
 				<p>Filter results for your budget: </p>
 				<select value={this.state.filterPrice} onChange={(e) => this.handleChange(e)}>
