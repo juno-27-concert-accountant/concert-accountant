@@ -1,0 +1,33 @@
+.navBar {
+	background-color: #97DAE8;
+	font-size: 2rem;
+	height: 75px;
+	display: flex;
+	align-items: center;
+	margin-bottom: 3%;
+}
+
+.navBar ul {
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	
+}
+
+.navBar li {
+	margin-left: 20px;
+	
+}
+
+.link {
+	text-decoration: none;
+	color: #0A0909;
+	padding: 10px;
+	border-radius: 20px;
+	transition: background-color ease-in-out 0.35s;
+}
+
+.link:hover,
+.link:focus {
+	background-color: #DBF0EF;
+}
