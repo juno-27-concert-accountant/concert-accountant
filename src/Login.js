@@ -79,7 +79,7 @@ class Login extends Component {
     const {userNew, userName, userEmail, userPassword, userCity, userNameError, userEmailError, userPasswordError, userCityError} = this.state
       const space = <span className="form__space"></span>;
         return(
-            <div className="Form">
+            <div className="Form wrapper">
                 <form>
                     <fieldset onChange={this.handleRadioChange} value={userNew}>
                         <div className={userNew ? "form--active radio" : "radio"}>
