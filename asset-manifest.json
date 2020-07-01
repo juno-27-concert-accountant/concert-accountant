@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/concert-accountant/static/css/main.a5af1c05.chunk.css",
-    "main.js": "/concert-accountant/static/js/main.d6e75c54.chunk.js",
-    "main.js.map": "/concert-accountant/static/js/main.d6e75c54.chunk.js.map",
+    "main.css": "/concert-accountant/static/css/main.227d3a56.chunk.css",
+    "main.js": "/concert-accountant/static/js/main.cd2ac136.chunk.js",
+    "main.js.map": "/concert-accountant/static/js/main.cd2ac136.chunk.js.map",
     "runtime-main.js": "/concert-accountant/static/js/runtime-main.cc4cdc34.js",
     "runtime-main.js.map": "/concert-accountant/static/js/runtime-main.cc4cdc34.js.map",
-    "static/js/2.3ca601df.chunk.js": "/concert-accountant/static/js/2.3ca601df.chunk.js",
-    "static/js/2.3ca601df.chunk.js.map": "/concert-accountant/static/js/2.3ca601df.chunk.js.map",
+    "static/js/2.b993b275.chunk.js": "/concert-accountant/static/js/2.b993b275.chunk.js",
+    "static/js/2.b993b275.chunk.js.map": "/concert-accountant/static/js/2.b993b275.chunk.js.map",
     "index.html": "/concert-accountant/index.html",
-    "precache-manifest.79c258239c88a37aa57dc53263074b23.js": "/concert-accountant/precache-manifest.79c258239c88a37aa57dc53263074b23.js",
+    "precache-manifest.79efff41e0b8c6bc6489f43561d5d493.js": "/concert-accountant/precache-manifest.79efff41e0b8c6bc6489f43561d5d493.js",
     "service-worker.js": "/concert-accountant/service-worker.js",
-    "static/css/main.a5af1c05.chunk.css.map": "/concert-accountant/static/css/main.a5af1c05.chunk.css.map",
-    "static/js/2.3ca601df.chunk.js.LICENSE.txt": "/concert-accountant/static/js/2.3ca601df.chunk.js.LICENSE.txt"
+    "static/css/main.227d3a56.chunk.css.map": "/concert-accountant/static/css/main.227d3a56.chunk.css.map",
+    "static/js/2.b993b275.chunk.js.LICENSE.txt": "/concert-accountant/static/js/2.b993b275.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.cc4cdc34.js",
-    "static/js/2.3ca601df.chunk.js",
-    "static/css/main.a5af1c05.chunk.css",
-    "static/js/main.d6e75c54.chunk.js"
+    "static/js/2.b993b275.chunk.js",
+    "static/css/main.227d3a56.chunk.css",
+    "static/js/main.cd2ac136.chunk.js"
   ]
 }
