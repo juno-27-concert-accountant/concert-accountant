@@ -98,13 +98,14 @@ class ConcertCard extends Component {
 					dateFormat
 				},
 				imgUrl,
-				tickets,
+				// tickets,
 				price,
 			});		
 		})
 		return resEvent;
 	};
-	
+
+	// Update this.state.filterPrice on select
 	handleChange(event) {
 
 		this.filterResults(event.target.value);
