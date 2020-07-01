@@ -1,91 +1,98 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import axios from 'axios';
+import ConcertCard from './ConcertCard';
+import './Search.css'
 
 class Search extends Component {
   constructor() {
       super();
+      this.state = {
+          cityNames: [],
+          userLocationSplit: [],
+          userLocation: '',
+          userArtist: '',
+          displayDropdown: false
+      }
   }
 
-  componentDidMount() {
-    const cityName = 'Tor';
-    axios({
+  findCity = (input) => {
+    axios({    
         method: 'GET',
         url: 'https://proxy.hackeryou.com',
-        dataType: 'json',
+        dataType: 'jsonp',
         params: {
             method: 'GET',
-            reqUrl: `http://gd.geobytes.com/AutoCompleteCity?q=${cityName}&sort=size`,
+            reqUrl: `http://gd.geobytes.com/AutoCompleteCity?q=${input}&sort=size&`,
             proxyHeaders: {
                 header_params: 'value'
             },
-            xmlToJSON: false,
-            useCache: false
+            xmlToJSON: false
         }
     }).then(res => {
-        console.log(res);
+        this.setState({
+            cityNames: res.data
+        })
+        if (res.data.length >= 1) {
+            this.setState({
+                displayDropdown: true
+            })
+        }
     });
 }
 
-  componentDidUpdate() {
-  }
-
-  componentWillUnmount() {
-  }
-
-  render() {
-      return(
-        <h1>hello</h1>
-      )
-   }
+handleInputChange = (e) => {
+    this.setState({
+        [e.target.name]: e.target.value
+    })
+    if (e.target.name === 'userLocation' & e.target.value.length >= 3) {
+        this.findCity(e.target.value)
+    } else {
+        this.setState({
+            cityNames: [],
+            displayDropdown: false
+        })
+    }
+}
+handleLocation = (e) => {
+    e.preventDefault();
+    const location = e.target.value.split(', ');
+    this.setState({
+        userLocationSplit: location,
+        userLocation: e.target.value,
+        displayDropdown: false
+    })
+}
+handleSubmit = (e) => {
+    e.preventDefault();
+}
+    render() {
+        const {userLocation, userArtist, displayDropdown, cityNames} = this.state;
+        return(
+            <Fragment>
+                <div className="search">
+                    <form>
+                        <label htmlFor="userLocation">Location</label>
+                        <span className="input__container">
+                            <input onChange={this.handleInputChange} type="text" name="userLocation" value={userLocation}/>
+                            {displayDropdown ? 
+                                <div className="city-options">
+                                    <ul>
+                                        {cityNames.map(city => {
+                                            return <li key={city.replace(/ /g, '')}><button value={city} onClick={this.handleLocation}>{city}</button></li>
+                                        })}
+                                    </ul>
+                                </div>: 
+                                null }
+                        </span>
+                        <label htmlFor="userArtist">Artist</label>
+                        <input onChange={this.handleInputChange} type="text" name="userArtist" value={userArtist}/>
+                        <button onClick={this.handleSubmit}>Search</button>
+                    </form>
+                </div>
+                <ConcertCard />
+            </Fragment>
+        )
+    }
 }
 
 export default Search;
-
-// [raw]
-// <script src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js" type="text/javascript"></script>
-// <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.10.3/themes/flick/jquery-ui.css" />
-//  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
-// <style type="text/css">
-// .ui-menu .ui-menu-item a,.ui-menu .ui-menu-item a.ui-state-hover, .ui-menu .ui-menu-item a.ui-state-active {
-// 	font-weight: normal;
-// 	margin: -1px;
-// 	text-align:left;
-// 	font-size:14px;
-// 	}
-// .ui-autocomplete-loading { background: white url("/images/ui-anim_basic_16x16.gif") right center no-repeat; }
-// </style>
- 
-// <script type="text/javascript">
- 
-// jQuery(function () 
-//  {
-// 	 jQuery("#f_elem_city").autocomplete({
-// 		source: function (request, response) {
-// 		 jQuery.getJSON(
-// 			"https://secure.geobytes.com/AutoCompleteCity?key=7c756203dbb38590a66e01a5a3e1ad96&callback=?&q="+request.term,
-// 			function (data) {
-// 			 response(data);
-// 			}
-// 		 );
-// 		},
-// 		minLength: 3,
-// 		select: function (event, ui) {
-// 		 var selectedObj = ui.item;
-// 		 jQuery("#f_elem_city").val(selectedObj.value);
-// 		getcitydetails(selectedObj.value);
-// 		 return false;
-// 		},
-// 		open: function () {
-// 		 jQuery(this).removeClass("ui-corner-all").addClass("ui-corner-top");
-// 		},
-// 		close: function () {
-// 		 jQuery(this).removeClass("ui-corner-top").addClass("ui-corner-all");
-// 		}
-// 	 });
-// 	 jQuery("#f_elem_city").autocomplete("option", "delay", 100);
-// 	});
-// </script>
-// <form action="" method="post" name="form_citydetails" id="form_citydetails" enctype="multipart/form-data" onsubmit="return false;">
-// <p><b>Please enter</b> your city here to see it work. <input class="ff_elem" type="text" name="ff_nm_from[]" value="" id="f_elem_city"/>
-// </form>
-// [/raw]

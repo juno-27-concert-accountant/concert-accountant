@@ -15,7 +15,7 @@ class App extends Component {
 
 			<Router>
 				<div className="App">
-					<Login />
+					{/* <Login /> */}
 					<Search/>
 					<Route exact path="/event/" component={ConcertCard} />
 

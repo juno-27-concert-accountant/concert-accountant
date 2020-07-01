@@ -129,7 +129,7 @@ class ConcertCard extends Component {
 				<div className="imageContainer">
 
 					<div className="concertStatus">
-						<i class="fas fa-ticket-alt"></i>
+						<i className="fas fa-ticket-alt"></i>
 					</div>
 
 					<Link to={`/event/${entry.eventID}`}>
