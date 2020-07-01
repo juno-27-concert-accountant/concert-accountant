@@ -77,7 +77,7 @@ class ConcertCard extends Component {
 			const imgUrl = data.images[2].url;
 
 			// Link to purchase tickets
-			const tickets = data.url;
+			// const tickets = data.url;
 
 			// To get price
 			const price = this.collectPrice(data);

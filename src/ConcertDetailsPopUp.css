@@ -1,0 +1,58 @@
+.modalContent h1 {
+	font-size: 4rem;
+	
+}
+
+.modalContent h2 {
+	font-size: 2rem;
+	margin: 2% 0px;
+}
+
+.modalContent h3 {
+	font-size: 1.5rem;
+	line-height: 2rem;
+}
+
+.modalImage {
+	margin: 5% auto;
+}
+
+.modalEvent {
+	display: flex;
+	justify-content: space-between;
+}
+
+.modalEventDetails {
+	width: 70%;
+}
+
+.modalButtons {
+	display: flex;
+	flex-flow: column;
+	align-items: flex-end;
+	justify-content: center;
+	width: 30%;
+}
+
+.modalButtons button {
+	background-color: #DBF0EF;
+	border: 1px solid #97DAE8;
+	margin-bottom: 10px;
+	font-size: 1.5rem;
+	transition: background-color ease-in-out 0.35s, border ease-in-out 0.35s;
+}
+
+.modalButtons button:focus,
+.modalButtons button:hover {
+	background-color: #97DAE8;
+	border: 1px solid #DBF0EF;
+}
+
+.modalImage {
+	width: 50%;
+	height: 50%;
+}
+
+.modalImage img {
+	width: 100%;
+}
