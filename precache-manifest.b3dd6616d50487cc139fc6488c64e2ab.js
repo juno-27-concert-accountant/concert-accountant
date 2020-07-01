@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "af149aa5b2407c9ea24bd2ccef353405",
+    "revision": "b930b4bb1f51b7b2053a1c0b384aaab2",
     "url": "/concert-accountant/index.html"
   },
   {
-    "revision": "ac481770103a5ba7a02d",
+    "revision": "135a4fc318f660f3431f",
     "url": "/concert-accountant/static/css/main.11277e60.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/concert-accountant/static/js/2.cedb7ca7.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "ac481770103a5ba7a02d",
-    "url": "/concert-accountant/static/js/main.7ab115e7.chunk.js"
+    "revision": "135a4fc318f660f3431f",
+    "url": "/concert-accountant/static/js/main.0abcff58.chunk.js"
   },
   {
     "revision": "d5ae42b7e146fb1a5d3f",
