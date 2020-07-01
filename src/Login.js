@@ -25,6 +25,7 @@ class Login extends Component {
                 userCityError: false
             })
     }
+    // on component did mount, grab DB info & list of usernames to toss in state
     validateInput = (input) => {
         const field = input.name;
         const inputRegex = {
@@ -39,11 +40,12 @@ class Login extends Component {
         }
         const stateError = field + "Error";
         if (inputRegex[field].test(input.value)) {
-            input.className = "fieldSuccess"
+            input.className = "fieldSuccess";
             console.log(stateError);
             this.setState({
                 [stateError]: false
             })
+            // add function to look through usernames to check for matches if pattern is valid and display new error
         } else {
             input.className = "fieldError"
             this.setState({
@@ -64,12 +66,12 @@ class Login extends Component {
             this.setState({
                 isLoggedIn: true
             })
-            // some sort of notification about fixing 
-        } else {
             // call function to set App state to show user is logged in
             // call function to hide landing page
             // const dbRef = firebase.database().ref();
             // dbRef.push(this.state); (will be modified to only push the login data)
+        } else {
+            // some sort of notification about fixing 
         }
     }
 
@@ -96,12 +98,12 @@ class Login extends Component {
                         {userNew ? 
                             <Fragment>
                                 <label htmlFor="userEmail">Email address</label>
-                                <input onChange={this.handleInputChange} type="text" name="userEmail" value={userEmail}/>
+                                <input onChange={this.handleInputChange} type="email" name="userEmail" value={userEmail}/>
                                 {userEmailError ? <p>Please enter a valid email address</p> : space}
                             </Fragment>: 
                             null}
                         <label htmlFor="userPassword">Password</label>
-                        <input onChange={this.handleInputChange} type="text" name="userPassword" value={userPassword}/>
+                        <input onChange={this.handleInputChange} type="password" name="userPassword" value={userPassword}/>
                         {userPasswordError ? <p>Password must be between 6 and 8 characters</p> : space}
                         {userNew ? 
                         <Fragment>
