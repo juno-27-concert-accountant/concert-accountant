@@ -5,14 +5,14 @@ import './Search.css'
 
 class Search extends Component {
   constructor() {
-      super();
-      this.state = {
-          cityNames: [],
-          userLocationSplit: [],
-          userLocation: '',
-          userArtist: '',
-					displayDropdown: false,
-					userCity: '',
+        super();
+        this.state = {
+            cityNames: [],
+            userLocationSplit: [],
+            userLocation: '',
+            userArtist: '',
+		    displayDropdown: false,
+            data: {}
       }
   }
 
@@ -64,16 +64,21 @@ handleLocation = (e) => {
     })
 }
 handleSubmit = (e) => {
-		e.preventDefault();
-		
+    e.preventDefault();        
+    const userArtist = this.state.userArtist;
+    const userLocation = this.state.userLocationSplit;
 		this.setState({
-			count: this.state.count++,
-			city: this.state.userLocationSplit[0],
-			artist: this.state.userArtist,
-		})
+            data: {
+                artist: userArtist,
+                location: userLocation,
+            },
+            userLocation: '',
+            userArtist: '',
+        })
+        console.log(this.state.data)
 }
     render() {
-        const {userLocation, userArtist, displayDropdown, cityNames} = this.state;
+        const {userLocation, userArtist, displayDropdown, cityNames, data} = this.state;
         return(
             <Fragment>
                 <div className="search">
@@ -96,12 +101,9 @@ handleSubmit = (e) => {
                         <button onClick={this.handleSubmit}>Search</button>
                     </form>
                 </div>
-								{
-                	this.state.userCity || this.state.artist
-									? <ConcertCard city={this.state.city} artist={this.state.artist} />
-									: null
-								}
-					{console.log(this.state.city, "userCity")}
+                {console.log(data)}
+                {data.location ? <ConcertCard data={data}/>: null}
+
             </Fragment>
         )
 		}
