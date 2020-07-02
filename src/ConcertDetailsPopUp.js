@@ -35,13 +35,14 @@ class ConcertDetailsPopUp extends Component {
 			}
 		}).then(response => {			
 			const res = response.data;
-			
+			console.log(res)
+
 			const dateStr = res.dates.start.localDate;
-			// const dateNum = Date.parse(dateStr);
-			const dateFormat = this.dateConvert(dateStr)
+			const dateFormat = this.dateConvert(dateStr);
+			const minPrice = res.priceRanges[0].min;
 			
 			const artist = res._embedded.attractions.map(art => {
-				return art.name
+				return art.name;
 			})
 
 			this.setState({
@@ -54,20 +55,12 @@ class ConcertDetailsPopUp extends Component {
 						country: res._embedded.venues[0].country.name,
 					},
 					info: res.info,
-					// date: {
-					// 	dateStr,
-					// 	dateNum,
-					// 	dateFormat,
-					// },
+					minPrice: minPrice.toFixed(2),
 					date: dateFormat,
 					status: (res.dates.status.code).toUpperCase(),
 					imgUrl: res.images[0].url,
 					tickets: res.url,
 					artist,
-					// priceRange: {
-						// min: res.priceRanges[0].min,
-						// max: res.priceRanges[0].max,
-					// },
 				},
 			})
 		})
@@ -91,17 +84,19 @@ class ConcertDetailsPopUp extends Component {
 						<div className="modalEventDetails">
 							{
 								this.state.modalEvent.status === "CANCELLED"
-								? <h3>{this.state.modalEvent.status}</h3> :
+								? <h3 className="modalStatus">{this.state.modalEvent.status}</h3> :
 								<>
-									<h3>{this.state.modalEvent.status}</h3>
-									<h3>Tickets start at </h3>
+									<h3 className="modalStatus">{this.state.modalEvent.status}</h3>
+									<h3>Tickets start at ${this.state.modalEvent.minPrice}</h3>
 									<h3>Featuring: </h3>
 									<ul>
 
 										{this.state.modalEvent.artist.map(art => {
 										return (
-											<li>
-												{art}
+											<li key={art}>
+												<p>
+													{art}
+												</p>
 											</li>
 											
 										)})}

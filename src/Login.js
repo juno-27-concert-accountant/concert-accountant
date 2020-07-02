@@ -77,21 +77,21 @@ class Login extends Component {
 
   render() {
     const {userNew, userName, userEmail, userPassword, userCity, userNameError, userEmailError, userPasswordError, userCityError} = this.state
-      const space = <span className="form__space"></span>;
+      const space = <span className="login_form_space"></span>;
         return(
-            <div className="Form wrapper">
+            <div className="login_form wrapper">
                 <form>
                     <fieldset onChange={this.handleRadioChange} value={userNew}>
-                        <div className={userNew ? "form--active radio" : "radio"}>
+                        <div className={userNew ? "login_form_active login_radio" : "login_radio"}>
                             <label htmlFor="signUp">Sign Up</label>
                             <input className="sr-only" type="radio" name="userNew" id="signUp" value="true"/>
                         </div>
-                        <div className={!userNew ? "form--active radio" : "radio"}>
+                        <div className={!userNew ? "login_form_active login_radio" : "login_radio"}>
                             <label htmlFor="logIn">Log In</label>
                             <input className="sr-only" type="radio" name="userNew" id="logIn" value="false"/>
                         </div>
                     </fieldset>
-                    <div className="form__container">
+                    <div className="login_form_container">
                         <label htmlFor="userName">Username</label>
                         <input onChange={this.handleInputChange} type="text" name="userName" value={userName}/>
                         {userNameError ? <p>Username must be between 5 and 8 characters</p> : space}

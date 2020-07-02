@@ -18,16 +18,16 @@ class App extends Component {
 			<Router basename="/">
 			<div className="App">
 				<header>
-      				<Navbar/>
+      		<Navbar/>
 					<Landing/>
 				</header>
-			<Search />
+					<Search />
       		<Route path="/login/" component={Login} />
 
 					{/* <Route exact path="/event/" component={ConcertCard} /> */}
 
 					{/* Show concert details */}
-			<Route exact path="/event/:eventID" component={ConcertDetailsPopUp} />
+					<Route exact path="/event/:eventID" component={ConcertDetailsPopUp} />
 				</div>
 			</Router>
 		);
