@@ -84,7 +84,11 @@ class ConcertDetailsPopUp extends Component {
 						<div className="modalEventDetails">
 							{
 								this.state.modalEvent.status === "CANCELLED"
-								? <h3 className="modalStatus">{this.state.modalEvent.status}</h3> :
+								? <> 
+								<h3 className="modalStatus">{this.state.modalEvent.status}</h3> 
+								<p>Due to Covid-19, this show has been cancelled.</p>
+								</>
+								:
 								<>
 									<h3 className="modalStatus">{this.state.modalEvent.status}</h3>
 									<h3>Tickets start at ${this.state.modalEvent.minPrice}</h3>

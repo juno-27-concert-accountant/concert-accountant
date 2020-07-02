@@ -49,7 +49,7 @@ class App extends Component {
 				<main>
 					<Search />
       				<Route path="/login/" component={Login} />
-					<Route exact path="/event/" component={ConcertCard} />
+					{/* <Route exact path="/event/" component={ConcertCard} /> */}
 					{/* Show concert details */}
 					<Route exact path="/event/:eventID" component={ConcertDetailsPopUp} />
 				</main>

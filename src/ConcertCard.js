@@ -198,8 +198,11 @@ class ConcertCard extends Component {
 		}).then(response => {
 			
 			if (!response.data._embedded) {
+				let error = !this.state.error;
+				
 				this.setState({
-					error: true
+					error,
+
 				})
 			} else {
 				const res = response.data._embedded.events;
