@@ -21,5 +21,14 @@ h6,
 p,
 label {
 	font-family: 'Maitree', serif;
+<<<<<<< HEAD
 	font-size: 2rem;
+=======
+}
+
+.wrapper {
+	width: 90%;
+	max-width: 1500px;
+	margin: auto;
+>>>>>>> 135b53005e4759c6af1a9d75b62e0bdf42219928
 }

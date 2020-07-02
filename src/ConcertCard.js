@@ -1,15 +1,20 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
+import "./ConcertCard.css";
+import ConcertDetailsPopUp from './ConcertDetailsPopUp';
 
 class ConcertCard extends Component {
 	constructor() {
 		super();
-
 		this.state = {
-			currentCity: "Toronto",
 			event: [],
-		};
-	}
+			modalEvent: "",
+			filteredResults: [],
+			isFiltered: false,
+			filterPrice: "0",
+		};		
+	};
 
 	// Function to convert date from YYYY-MM-DD format to Weekday Month Day Year format
 	dateConvert(d) {
@@ -27,17 +32,16 @@ class ConcertCard extends Component {
 			return ({
 				type: data.priceRanges[0].type,
 				currency: data.priceRanges[0].currency,
-				min: `$${data.priceRanges[0].min.toFixed(2)}`,
-				max: `$${data.priceRanges[0].max.toFixed(2)}`,
-				status: false,
+				min: `${data.priceRanges[0].min.toFixed(2)}`,
+				max: `${data.priceRanges[0].max.toFixed(2)}`,
+				
 			})
 		} else {
 			return ({
 				type: false,
 				currency: false,
-				min: false,
-				max: false,
-				status: "No ticket prices to show."
+				min: "N/A",
+				max: "N/A",
 			})
 		}
 	}
@@ -50,10 +54,6 @@ class ConcertCard extends Component {
 			
 			// To get the name of the artist
 			const name = data.name;
-			
-			const artist = data._embedded.attractions.map(art => {
-				return art.name
-			});
 			
 			// To get the venue
 			const venue =  data._embedded.venues[0].name;
@@ -73,20 +73,15 @@ class ConcertCard extends Component {
 			const dateNum = Date.parse(dateStr);
 
 			// To get image
-			const imgUrl = data.images[0].url;
-
-			// Link to purchase tickets
-			const tickets = data.url;
+			const imgUrl = data.images[2].url;
 
 			// To get price
-
 			const price = this.collectPrice(data);
 
 			// Return obj to push to this.state.event
 			return ({
 				eventID,
 				name,
-				artist,
 				venue,
 				location: {
 					city,
@@ -99,28 +94,102 @@ class ConcertCard extends Component {
 					dateFormat
 				},
 				imgUrl,
-				tickets,
+				// tickets,
 				price,
 			});		
 		})
 		return resEvent;
 	};
-	
-	componentDidMount() {
+	//Update this.state.filterPrice on select
+	handleChange(event) {
+
+		this.filterResults(event.target.value);
+
+		this.setState({
+			filterPrice: parseFloat(event.target.value),
+		})
+	}
+
+	renderConcertCell(entry) {
+		return (
+					
+			<div key={entry.eventID} className="concertCell">
+				<Link to={`/event/${entry.eventID}`}>
+				<div className="imageContainer">
+
+					<img src={entry.imgUrl} alt={entry.name} />	
+
+				</div>
+				<div className="concertInfo">
+					<h2>{entry.name}</h2>
+					<p>{entry.date.dateFormat}</p>
+					
+					{entry.price.min === 'N/A' 
+						? <p>No prices currently available.</p>
+						: <p>Prices starting as low as ${entry.price.min}</p>}
+				</div>
+			</Link>
+				
+			</div>
+		)
+	}
+
+	filterResults() {
+		const eventCopy = this.state.event;
+		let price = parseFloat(this.state.filterPrice);
+
+		const filteredResults = eventCopy.filter((event) => {
+				const shouldFilter = parseFloat(event.price.min) <= parseFloat(price)
+
+				return shouldFilter
+		})
+
+		this.setState({
+			filteredResults,
+		})
+	}
+
+	showFiltered() {
+		let isFiltered = true;
+
+		if (this.state.filterPrice == "0") {
+			isFiltered = false;
+		} else {
+			isFiltered = true;
+		}
+
+		this.setState({
+			isFiltered,
+		})
+
+		this.filterResults();
+	}
+
+	runAxios() {
+		let city = this.props.data.location[0] || "Toronto";
+		let keyword = this.props.data.artist || "";
+
 		axios({
 			url: "https://app.ticketmaster.com/discovery/v2/events",
 			method: "GET",
 			responseType: "JSON",
 			params: {
 				apikey: "Mh0RGGBfkgADAASrXM25WfhUueio9rgV",
-				// type: "event",
-				locale: "en-us",
-				segment: "music",
-				city: this.state.currentCity,
+				segmentName: "music",
+				// city: this.props.data.location[0],
+				city,
+				// keyword: this.props.data.artist,
+				keyword,
 			}
 		}).then(response => {
+			
+			if (!response.data._embedded) {
+				alert("No valid results");
+				window.location.reload(false);
+			}
+
 			const res = response.data._embedded.events;
-			console.log(res)
+			
 			const resEvent = this.mapToAppData(res);
 
 			this.setState({
@@ -129,31 +198,40 @@ class ConcertCard extends Component {
 		})
 	}
 
+	componentDidUpdate() {
+		this.runAxios();
+	}
+
+	componentDidMount() {
+		this.runAxios();
+	}
+
 	render() {
 		return (
-			<>
-			{ this.state.event.map( entry => {
-				return (
-					<div className="concertCell">
-						<div className="imageContainer">
-							<img src={entry.imgUrl} alt={entry.name}/>
-						</div>
-						<div className="concertInfo">
-							<h2>{entry.name}</h2>
-							<h3>@ {entry.venue}</h3>
-							{/* {entry.artist.map(artist => {
-								return(
-									<p>{artist}</p>
-								)
-							})} */}
-							<p>{entry.date.dateFormat}</p>
+			<div className="wrapper">
+			<div className="budgetFilter">
+				<p>Filter results for your budget: </p>
+				<select value={this.state.filterPrice} onChange={(e) => this.handleChange(e)}>
+					<option value="0">All</option>
+					<option value="25">$25 or Less</option>
+					<option value="50">$50 or Less</option>
+					<option value="75">$75 or Less</option>
+					<option value="100">$100 or Less</option>
+				</select>
+				<button onClick={(e) => this.showFiltered(e)}>Filter</button>
+			</div>
+			<div className="concertCards">
+			
+			{
+				this.state.isFiltered === false 
+				? this.state.event.map(event => this.renderConcertCell(event)) 
+				: this.state.filteredResults.map(event => this.renderConcertCell(event)) 
+			}
 
-						</div>
-					</div>
-			)})}
-			</>
+			</div>
+			</div>
 		)
-	}
-}
+	
+}}
 
 export default ConcertCard;

@@ -1,22 +1,70 @@
+<<<<<<< HEAD
 import React, {Component} from 'react';
 import Dashboard from './Dashboard';
+=======
+import React, {Component, Fragment} from 'react';
+import './Login.css'
+>>>>>>> 135b53005e4759c6af1a9d75b62e0bdf42219928
 
 class Login extends Component {
     constructor() {
         super();
         this.state = {
-            signedIn: false,
-            userNew: 'true',
+            isLoggedOn: false,
+            userNew: true,
             userName: '',
             userEmail: '',
             userPassword: '',
             userCity: '',
-            error: ''
+            userNameError: false,
+            userEmailError: false,
+            userPasswordError: false,
+            userCityError: false
+        }
+    }   
+    handleRadioChange = (e) => {
+        const isUserNew = e.target.value === "true" ? true : false;
+            this.setState({
+                userNew: isUserNew,
+                userEmailError: false,
+                userCityError: false
+            })
+    }
+    // on component did mount, grab DB info & list of usernames to toss in state
+    validateInput = (input) => {
+        const field = input.name;
+        const inputRegex = {
+            // username must be between 5 and 10 characters
+            userName: /^[a-z0-9]([._](?![._])|[a-z0-9])[a-z0-9]{3,8}$/,
+            // email must be email format
+            userEmail: /^([a-z0-9_ .-]+)@([\da-z.-]+)\.([a-z.]{2,6})$/,
+            // password 6-20 characters
+            userPassword: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/,
+            // city only allows letters, special letter characters, and punctuation regularly found in city names
+            userCity: /^([a-zA-Z\u0080-\u024F]+(?:. |-| |'))*[a-zA-Z\u0080-\u024F]*$/
+        }
+        const stateError = field + "Error";
+        if (inputRegex[field].test(input.value)) {
+            input.className = "fieldSuccess";
+            console.log(stateError);
+            this.setState({
+                [stateError]: false
+            })
+            // add function to look through usernames to check for matches if pattern is valid and display new error
+        } else {
+            input.className = "fieldError"
+            this.setState({
+                [stateError]: true
+            })
         }
     }
+<<<<<<< HEAD
      
 
+=======
+>>>>>>> 135b53005e4759c6af1a9d75b62e0bdf42219928
     handleInputChange = (e) => {
+        this.validateInput(e.target);
         this.setState({
             [e.target.name]: e.target.value
         })
@@ -24,63 +72,58 @@ class Login extends Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
-        if (!this.state.userName) {
+        if (!this.state.userNameError && !this.state.userEmailError && !this.state.userPasswordError && !this.state.userCityError) {
             this.setState({
-                error: "Please choose a username"
+                isLoggedIn: true
             })
-        } else if (!this.state.userEmail) {
-            this.setState({
-                error: "Please enter your email"
-            })
-        } else if (!this.state.userPassword) {
-            this.setState({
-                error: "Please choose a password"
-            })
-        } else if (!this.state.userCity) {
-            this.setState({
-                error: "Please enter your city"
-            })
-        } else {
             // call function to set App state to show user is logged in
             // call function to hide landing page
-            const isUserNew = this.state.userNew === "true" ? true : false;
-            this.setState({
-                userNew: isUserNew,
-            })
             // const dbRef = firebase.database().ref();
             // dbRef.push(this.state); (will be modified to only push the login data)
-            this.setState({
-                userNew: 'true',
-                userName: '',
-                userEmail: '',
-                userPassword: '',
-                userCity: '',
-                error: ''
-            })
+        } else {
+            // some sort of notification about fixing 
         }
     }
 
   render() {
-      const {userNew, userName, userEmail, userPassword, userCity} = this.state
+    const {userNew, userName, userEmail, userPassword, userCity, userNameError, userEmailError, userPasswordError, userCityError} = this.state
+      const space = <span className="form__space"></span>;
         return(
-            <div className="Form">
-                <h4>Login</h4>
+            <div className="Form wrapper">
                 <form>
-                    <fieldset onChange={this.handleInputChange} value={userNew}>
-                        <input className="sr-only" type="radio" name="userNew" id="logIn" value="false"/>
-                        <label className="form__radio" htmlFor="signUp">Sign Up</label>
-                        <input className="sr-only" type="radio" name="userNew" id="signUp" value="true"/>
-                        <label className="form__radio" htmlFor="logIn">Log In</label>
+                    <fieldset onChange={this.handleRadioChange} value={userNew}>
+                        <div className={userNew ? "form--active radio" : "radio"}>
+                            <label htmlFor="signUp">Sign Up</label>
+                            <input className="sr-only" type="radio" name="userNew" id="signUp" value="true"/>
+                        </div>
+                        <div className={!userNew ? "form--active radio" : "radio"}>
+                            <label htmlFor="logIn">Log In</label>
+                            <input className="sr-only" type="radio" name="userNew" id="logIn" value="false"/>
+                        </div>
                     </fieldset>
-                    <label htmlFor="userName"></label>
-                    <input onChange={this.handleInputChange} type="text" name="userName" value={userName}/>
-                    <label htmlFor="userEmail"></label>
-                    <input onChange={this.handleInputChange} type="text" name="userEmail" value={userEmail}/>
-                    <label htmlFor="userPassword"></label>
-                    <input onChange={this.handleInputChange} type="text" name="userPassword" value={userPassword}/>
-                    <label htmlFor="userCity"></label>
-                    <input onChange={this.handleInputChange} type="text" name="userCity" id={userCity}/>
-                    <button>{userNew === "true" ? "Sign Up" : "Login"}</button>
+                    <div className="form__container">
+                        <label htmlFor="userName">Username</label>
+                        <input onChange={this.handleInputChange} type="text" name="userName" value={userName}/>
+                        {userNameError ? <p>Username must be between 5 and 8 characters</p> : space}
+                        {userNew ? 
+                            <Fragment>
+                                <label htmlFor="userEmail">Email address</label>
+                                <input onChange={this.handleInputChange} type="email" name="userEmail" value={userEmail}/>
+                                {userEmailError ? <p>Please enter a valid email address</p> : space}
+                            </Fragment>: 
+                            null}
+                        <label htmlFor="userPassword">Password</label>
+                        <input onChange={this.handleInputChange} type="password" name="userPassword" value={userPassword}/>
+                        {userPasswordError ? <p>Password must be between 6 and 8 characters</p> : space}
+                        {userNew ? 
+                        <Fragment>
+                            <label htmlFor="userCity">Home city</label>
+                            <input onChange={this.handleInputChange} type="text" name="userCity" id={userCity}/>
+                            {userCityError ? <p>Please remove special characters</p> : space}
+                        </Fragment> :
+                        null}
+                        <button onClick={this.handleSubmit}>{userNew ? "Sign Up" : "Login"}</button>
+                    </div>
                 </form>
             </div>
         )
