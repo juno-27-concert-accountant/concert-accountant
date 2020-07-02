@@ -5,13 +5,14 @@ import './Search.css'
 
 class Search extends Component {
   constructor() {
-      super();
-      this.state = {
-          cityNames: [],
-          userLocationSplit: [],
-          userLocation: '',
-          userArtist: '',
-          displayDropdown: false
+        super();
+        this.state = {
+            cityNames: [],
+            userLocationSplit: [],
+            userLocation: '',
+            userArtist: '',
+		    displayDropdown: false,
+            data: {}
       }
   }
 
@@ -65,11 +66,22 @@ handleLocation = (e) => {
 }
 
 handleSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault();        
+    const userArtist = this.state.userArtist;
+    const userLocation = this.state.userLocationSplit;
+		this.setState({
+            data: {
+                artist: userArtist,
+                location: userLocation,
+            },
+            userLocation: '',
+            userArtist: '',
+        })
+        console.log(this.state.data)
 }
 
     render() {
-        const {userLocation, userArtist, displayDropdown, cityNames} = this.state;
+        const {userLocation, userArtist, displayDropdown, cityNames, data} = this.state;
         return(
             <Fragment>
                 <div className="search">
@@ -92,10 +104,13 @@ handleSubmit = (e) => {
                         <button onClick={this.handleSubmit}>Search</button>
                     </form>
                 </div>
-                <ConcertCard />
+								
+                {data.location || data.artist ? <ConcertCard data={data}/>: null}
+
             </Fragment>
         )
-    }
+		}
+		
 }
 
 export default Search;
