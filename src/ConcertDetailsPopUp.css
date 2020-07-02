@@ -11,6 +11,12 @@
 .modalContent h3 {
 	font-size: 1.5rem;
 	line-height: 2rem;
+	margin: 5px auto;
+}
+
+.modalContent .modalStatus {
+	font-size: 3rem;
+	margin-bottom: 10px;
 }
 
 .modalImage {
@@ -24,6 +30,13 @@
 
 .modalEventDetails {
 	width: 70%;
+}
+
+.modalEventDetails li {
+	margin: 10px auto;
+}
+.modalEventDetails p {
+	font-size: 1.2rem;
 }
 
 .modalButtons {
