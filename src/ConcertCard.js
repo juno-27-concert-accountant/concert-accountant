@@ -13,10 +13,9 @@ class ConcertCard extends Component {
 			filteredResults: [],
 			isFiltered: false,
 			filterPrice: "0",
-		};
-
-		
+		};		
 	};
+
 	// Function to convert date from YYYY-MM-DD format to Weekday Month Day Year format
 	dateConvert(d) {
 		let newDate = new Date(d);
@@ -75,9 +74,6 @@ class ConcertCard extends Component {
 
 			// To get image
 			const imgUrl = data.images[2].url;
-
-			// Link to purchase tickets
-			// const tickets = data.url;
 
 			// To get price
 			const price = this.collectPrice(data);
@@ -171,16 +167,20 @@ class ConcertCard extends Component {
 	}
 
 	runAxios() {
-				axios({
+		let city = this.props.data.location[0] || "Toronto";
+		let keyword = this.props.data.artist || "";
+
+		axios({
 			url: "https://app.ticketmaster.com/discovery/v2/events",
 			method: "GET",
 			responseType: "JSON",
 			params: {
 				apikey: "Mh0RGGBfkgADAASrXM25WfhUueio9rgV",
-				// locale: "en-us",
 				segmentName: "music",
-				city: this.props.data.location[0],
-				keyword: this.props.data.artist,
+				// city: this.props.data.location[0],
+				city,
+				// keyword: this.props.data.artist,
+				keyword,
 			}
 		}).then(response => {
 			
@@ -205,27 +205,6 @@ class ConcertCard extends Component {
 
 	componentDidMount() {
 		this.runAxios();
-		// axios({
-		// 	url: "https://app.ticketmaster.com/discovery/v2/events",
-		// 	method: "GET",
-		// 	responseType: "JSON",
-		// 	params: {
-		// 		apikey: "Mh0RGGBfkgADAASrXM25WfhUueio9rgV",
-		// 		// locale: "en-us",
-		// 		segmentName: "music",
-		// 		city: this.state.currentCity,
-		// 		keyword: this.state.artist,
-		// 	}
-		// }).then(response => {
-			
-		// 	const res = response.data._embedded.events;
-			
-		// 	const resEvent = this.mapToAppData(res);
-
-		// 	this.setState({
-		// 		event: resEvent,
-		// 	})
-		// })
 	}
 
 	render() {
