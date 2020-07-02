@@ -11,7 +11,9 @@ html {
 	color: #0A0909;
 	background-color: #FAF9F9;
 }
-
+body {
+	font-size: 1.6rem;
+}
 h1, 
 h2,
 h3,
@@ -20,9 +22,48 @@ h5,
 h6 {
 	font-family: 'Maitree', serif;
 }
-
+h1 {
+	font-size: 10rem;
+}
+h2 {
+	font-size: 3rem;
+}
+h4 {
+	font-size: 2.5rem;
+}
+hr {
+	width: 100%;
+	background-color: #97DAE8;
+	height: 0.5rem;
+	border: 0;
+}
 .wrapper {
 	width: 90%;
 	max-width: 1500px;
 	margin: auto;
+}
+.header__wrapper {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+	height: 80vh;
+	padding: 4rem 0;
+}
+.header__right {
+	border: .5rem solid #97DAE8;
+	border-radius: 5rem;
+	width: calc(100% / 3);
+	height: 50%;
+	padding: 2rem;
+	min-height: 40rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+.header__form {
+	height: 80%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
 }
