@@ -1,10 +1,5 @@
-<<<<<<< HEAD
-import React, {Component} from 'react';
-import Dashboard from './Dashboard';
-=======
 import React, {Component, Fragment} from 'react';
 import './Login.css'
->>>>>>> 135b53005e4759c6af1a9d75b62e0bdf42219928
 
 class Login extends Component {
     constructor() {
@@ -58,11 +53,6 @@ class Login extends Component {
             })
         }
     }
-<<<<<<< HEAD
-     
-
-=======
->>>>>>> 135b53005e4759c6af1a9d75b62e0bdf42219928
     handleInputChange = (e) => {
         this.validateInput(e.target);
         this.setState({

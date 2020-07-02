@@ -16,13 +16,9 @@
     "react-scripts": "3.4.1"
   },
   "scripts": {
-<<<<<<< HEAD
-    "start": "react-scripts start",
-=======
 		"predeploy": "npm run build",
 		"deploy": "gh-pages -d build",
 		"start": "BROWSER=open react-scripts start",
->>>>>>> 135b53005e4759c6af1a9d75b62e0bdf42219928
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
