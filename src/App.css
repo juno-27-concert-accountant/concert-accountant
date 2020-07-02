@@ -84,7 +84,6 @@ button {
 	justify-content: space-around;
 }
 
-<<<<<<< HEAD
 @media (max-width: 600px) {
 	.header__left {
 		width: 100%;
@@ -100,7 +99,6 @@ button {
 		width: 100%;
 	}
 }
-=======
 .modal__back {
 	position: fixed;
 	top: 0;
@@ -122,4 +120,3 @@ button {
 	width: 50%;
 }
 
->>>>>>> 03cfd5854e6def1b7fb6c83b0d81db6dc545e00b
