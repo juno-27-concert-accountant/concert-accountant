@@ -24,7 +24,7 @@ class Landing extends Component {
                         <h2>Let us worry about the math.</h2>
                     </section>
                     <section className="header__right">
-                        <h4>Start budgeting now</h4>
+                        <h4>Start budgeting <em>now</em>:</h4>
                         <hr/>
                         <form className="header__form">
                             <label htmlFor="newName">Your name</label>
