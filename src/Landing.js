@@ -1,6 +1,7 @@
 import React, {Component, Fragment} from 'react';
 import firebase from './firebase';
 
+
 class Landing extends Component {
   constructor() {
       super();
@@ -15,11 +16,15 @@ class Landing extends Component {
         const {newName, newList, newBudget} = this.props.data
         return(
             <Fragment>
-                <section>
+                <div className="landingContainer wrapper">
+								<section className="landing">
                     <h1>Concert Accountant</h1>
-                    <h2>Set your budget. Browse concerts you want to see. Add them to your list. Let us worry about the math.</h2>
+                    <h2>Set your budget. 
+										<br/>Browse concerts you want to see. 
+										<br/>Add them to your list. 
+										<br/>Let us worry about the math.</h2>
                 </section>
-                <section>
+                <section className="landingForm">
                     <form>
                         <h4>Start budgeting now</h4>
                         <label htmlFor="newName">Your name</label>
@@ -31,6 +36,7 @@ class Landing extends Component {
                         <button onClick={this.props.handleSubmit}>Start saving now</button>
                     </form>
                 </section>
+								</div>
             </Fragment>
         )
     }

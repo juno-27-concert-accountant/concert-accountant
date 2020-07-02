@@ -6,6 +6,17 @@
     top: 1.2rem;
     left: 0;
     right: 0;
-    background-color: yellow;
     z-index: 100;
+}
+
+.city-options button {
+	width: 100%;
+	border: 1px solid black;
+	transition: background-color ease-in-out 0.35s, border ease-in-out 0.35s;
+}
+
+.city-options button:hover,
+.city-options button:focus {
+	border: 1px solid #C0C8F0;
+	background-color: #DBF0EF;
 }
