@@ -8,23 +8,26 @@ import Login from './Login.js';
 import ConcertDetailsPopUp from './ConcertDetailsPopUp.js';
 import Search from './Search.js';
 import ConcertCard from './ConcertCard.js';
+import Landing from './Landing.js'
 
 
 
 class App extends Component {
 	render() {
 		return (
-
 			<Router basename="/">
-				<div className="App">
-      		<Navbar />
-
-					<Search/>
+			<div className="App">
+				<header>
+      				<Navbar/>
+					<Landing/>
+				</header>
+			<Search />
       		<Route path="/login/" component={Login} />
+
 					{/* <Route exact path="/event/" component={ConcertCard} /> */}
 
 					{/* Show concert details */}
-					<Route exact path="/event/:eventID" component={ConcertDetailsPopUp} />
+			<Route exact path="/event/:eventID" component={ConcertDetailsPopUp} />
 				</div>
 			</Router>
 		);
