@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import "./ConcertCard.css";
@@ -13,6 +13,7 @@ class ConcertCard extends Component {
 			filteredResults: [],
 			isFiltered: false,
 			filterPrice: "0",
+			error: false
 		};		
 	};
 
@@ -197,17 +198,17 @@ class ConcertCard extends Component {
 		}).then(response => {
 			
 			if (!response.data._embedded) {
-				alert("No valid results");
-				window.location.reload(false);
+				this.setState({
+					error: true
+				})
+			} else {
+				const res = response.data._embedded.events;
+				const resEvent = this.mapToAppData(res);
+				this.setState({
+					event: resEvent,
+				})
 			}
 
-			const res = response.data._embedded.events;
-			
-			const resEvent = this.mapToAppData(res);
-
-			this.setState({
-				event: resEvent,
-			})
 		})
 	}
 
@@ -218,30 +219,48 @@ class ConcertCard extends Component {
 	componentDidMount() {
 		this.runAxios();
 	}
+	handleError = (e) => {
+		e.preventDefault();
+		this.setState({
+			error: false
+		})
+	};
 
 	render() {
+		const {filterPrice, error} = this.state
 		return (
 			<div className="wrapper">
-			<div className="budgetFilter">
-				<p>Filter results for your budget: </p>
-				<select value={this.state.filterPrice} onChange={(e) => this.handleChange(e)}>
-					<option value="0">All</option>
-					<option value="25">$25 or Less</option>
-					<option value="50">$50 or Less</option>
-					<option value="75">$75 or Less</option>
-					<option value="100">$100 or Less</option>
-				</select>
-				<button onClick={(e) => this.showFiltered(e)}>Filter</button>
-			</div>
-			<div className="concertCards">
-			
-			{
-				this.state.isFiltered === false 
-				? this.state.event.map(event => this.renderConcertCell(event)) 
-				: this.state.filteredResults.map(event => this.renderConcertCell(event)) 
-			}
-
-			</div>
+				<section className="budgetFilter">
+					<p>Filter results for your budget: </p>
+						
+					<select value={filterPrice} onChange={(e) => this.handleChange(e)}>
+						<option value="0">All</option>
+						<option value="25">$25 or Less</option>
+						<option value="50">$50 or Less</option>
+						<option value="75">$75 or Less</option>
+						<option value="100">$100 or Less</option>
+					</select>
+					<button onClick={(e) => this.showFiltered(e)}>Filter</button>
+				</section>
+				{ error ? 
+				<Fragment>
+					<div className="modal__back">
+						<div className="modal__front">
+							<h4>Error</h4>
+							<hr/>
+							<p>No results found</p>
+							<button onClick={this.handleError}>Close</button>
+						</div>
+					</div>
+				</Fragment> :
+				null }
+				<section className="concertCards">
+					{
+						this.state.isFiltered === false ?
+						this.state.event.map(event => this.renderConcertCell(event)) :
+						this.state.filteredResults.map(event => this.renderConcertCell(event)) 
+					}
+				</section>
 			</div>
 		)
 	

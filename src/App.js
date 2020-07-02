@@ -43,18 +43,16 @@ class App extends Component {
 			<Router basename="/">
 			<div className="App">
 				<header>
-
       				<Navbar/>
 					<Landing handleInputChange={this.handleInputChange} handleSubmit={this.handleSubmit} data={this.state}/>
-
 				</header>
+				<main>
 					<Search />
-      		<Route path="/login/" component={Login} />
-
-					{/* <Route exact path="/event/" component={ConcertCard} /> */}
-
+      				<Route path="/login/" component={Login} />
+					<Route exact path="/event/" component={ConcertCard} />
 					{/* Show concert details */}
 					<Route exact path="/event/:eventID" component={ConcertDetailsPopUp} />
+				</main>
 				</div>
 			</Router>
 		);

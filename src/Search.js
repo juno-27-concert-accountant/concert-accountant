@@ -96,26 +96,23 @@ handleSubmit = (e) => {
                                             return <li key={city.replace(/ /g, '')}><button value={city} onClick={this.handleLocation}>{city}</button></li>
                                         })}
                                     </ul>
-                                </div>: 
+                                </div> : 
                                 null }
                         </span>
                         <label htmlFor="userArtist">Artist</label>
                         <input onChange={this.handleInputChange} type="text" name="userArtist" value={userArtist}/>
-                        
-													<button onClick={this.handleSubmit}>
-													<Link to="/event/">
-													Search
-													</Link></button>
-												
+                        <button onClick={this.handleSubmit}>
+                            <Link to="/event/">
+                                Search
+                            </Link>
+                        </button>
                     </form>
                 </div>
-
-								{data.location || data.artist 
-								? <Route exact path="/event/">
-										<ConcertCard data={data} />
-									</Route> 
-								: null }
-
+                {data.location || data.artist ? 
+                    <Route exact path="/event/">
+                    <ConcertCard data={data} />
+                    </Route> :
+                    null }
             </Fragment>
         )
 		}

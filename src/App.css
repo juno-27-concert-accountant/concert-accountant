@@ -13,6 +13,7 @@ html {
 }
 body {
 	font-size: 1.6rem;
+	position: relative;
 }
 h1, 
 h2,
@@ -30,6 +31,7 @@ h1 {
 }
 h2 {
 	font-size: 3rem;
+	font-style: italic;
 }
 h4 {
 	font-size: 2.5rem;
@@ -39,6 +41,12 @@ hr {
 	background-color: #97DAE8;
 	height: 0.5rem;
 	border: 0;
+}
+em {
+	font-style: bold;
+}
+header {
+	background-color: #C0C8F0;
 }
 .wrapper {
 	width: 90%;
@@ -58,6 +66,7 @@ button {
 	padding: 4rem 0;
 }
 .header__right {
+	background-color: white;
 	border: .5rem solid #97DAE8;
 	border-radius: 5rem;
 	width: calc(100% / 3);
@@ -74,3 +83,25 @@ button {
 	flex-direction: column;
 	justify-content: space-around;
 }
+
+.modal__back {
+	position: fixed;
+	top: 0;
+	right: 0;
+	left: 0;
+	bottom: 0;
+	z-index: 50;
+	background-color: rgba(00, 00, 00, 0.5);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.modal__front {
+	background-color: white;
+	border: .5rem solid #97DAE8;
+	border-radius: 5rem;
+	padding: 2rem;
+	height: 20%;
+	width: 50%;
+}
+
