@@ -55,6 +55,7 @@ handleInputChange = (e) => {
         })
     }
 }
+
 handleLocation = (e) => {
     e.preventDefault();
     const location = e.target.value.split(', ');
@@ -64,6 +65,7 @@ handleLocation = (e) => {
         displayDropdown: false
     })
 }
+
 handleSubmit = (e) => {
     e.preventDefault();        
     const userArtist = this.state.userArtist;
@@ -77,6 +79,7 @@ handleSubmit = (e) => {
             userArtist: '',
         })
 }
+
     render() {
         const {userLocation, userArtist, displayDropdown, cityNames, data} = this.state;
         return(
