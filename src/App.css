@@ -10,21 +10,41 @@ html {
 	font-family: 'Montserrat', sans-serif;
 	color: #0A0909;
 }
-
+body {
+	font-size: 1.6rem;
+}
 h1, 
 h2,
 h3,
 h4,
 h5,
-h6 {
+h6,
+p,
+label {
 	font-family: 'Maitree', serif;
+	font-size: 2rem;
 }
-
+h1 {
+	font-size: 10rem;
+}
+h2 {
+	font-size: 3rem;
+}
+h4 {
+	font-size: 2.5rem;
+}
+hr {
+	width: 100%;
+	background-color: #97DAE8;
+	height: 0.5rem;
+	border: 0;
+}
 .wrapper {
 	width: 90%;
 	max-width: 1500px;
 	margin: auto;
 }
+<<<<<<< HEAD
 
 button {
 	background-color: #faf9f9;
@@ -35,3 +55,30 @@ button {
 button:focus {
 	background-color: #DBF0EF;
 } */
+=======
+.header__wrapper {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+	height: 80vh;
+	padding: 4rem 0;
+}
+.header__right {
+	border: .5rem solid #97DAE8;
+	border-radius: 5rem;
+	width: calc(100% / 3);
+	height: 50%;
+	padding: 2rem;
+	min-height: 40rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+.header__form {
+	height: 80%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+}
+>>>>>>> 9cbcca3dd4b68d6c857fdbdb3e73a4ae195fe10a
