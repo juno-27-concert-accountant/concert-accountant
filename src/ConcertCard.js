@@ -6,7 +6,6 @@ import "./ConcertCard.css";
 class ConcertCard extends Component {
 	constructor() {
 		super();
-
 		this.state = {
 			currentCity: "Toronto",
 			event: [],
@@ -104,8 +103,7 @@ class ConcertCard extends Component {
 		})
 		return resEvent;
 	};
-
-	// Update this.state.filterPrice on select
+	//Update this.state.filterPrice on select
 	handleChange(event) {
 
 		this.filterResults(event.target.value);
@@ -120,23 +118,17 @@ class ConcertCard extends Component {
 					
 			<div key={entry.eventID} className="concertCell">
 				<div className="imageContainer">
-
-
-
 					<Link to={`/event/${entry.eventID}`}>
 							<img src={entry.imgUrl} alt={entry.name} />
 					</Link>
-
 				</div>
 				<div className="concertInfo">
 					<h2>{entry.name}</h2>
 					<p>{entry.date.dateFormat}</p>
 					
-					{
-						entry.price.min === 'N/A' 
+					{entry.price.min === 'N/A' 
 						? <p>No prices currently available.</p>
-						: <p>Prices starting as low as ${entry.price.min}</p>
-					}
+						: <p>Prices starting as low as ${entry.price.min}</p>}
 				</div>
 			</div>
 		)

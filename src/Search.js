@@ -53,6 +53,7 @@ handleInputChange = (e) => {
         })
     }
 }
+
 handleLocation = (e) => {
     e.preventDefault();
     const location = e.target.value.split(', ');
@@ -62,9 +63,11 @@ handleLocation = (e) => {
         displayDropdown: false
     })
 }
+
 handleSubmit = (e) => {
     e.preventDefault();
 }
+
     render() {
         const {userLocation, userArtist, displayDropdown, cityNames} = this.state;
         return(
