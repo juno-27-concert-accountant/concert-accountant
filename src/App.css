@@ -9,7 +9,7 @@
 html {
 	font-family: 'Montserrat', sans-serif;
 	color: #0A0909;
-	background-color: #FAF9F9;
+	font-size: 10px;
 }
 body {
 	font-size: 1.6rem;
@@ -44,6 +44,10 @@ hr {
 	width: 90%;
 	max-width: 1500px;
 	margin: auto;
+}
+button {
+	background-color: #faf9f9;
+	transition: background-color ease-in-out 0.35s;
 }
 .header__wrapper {
 	display: flex;

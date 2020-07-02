@@ -1,5 +1,7 @@
 .login_form {
-    background-color: #97DAE8;
+		border: .5rem solid #97DAE8;
+		border-radius: 10px;
+		margin-top: 5%;
 }
 .login_form_container {
     padding: 2rem;
@@ -28,16 +30,18 @@ input {
     width: 50%;
     text-align: center;
     border-bottom: none;
-    background-color: white;
+		background-color: #C0C8F0;
+		border-radius: 10px;
+		opacity: 40%;
 }
 .login_radio label {
     display: block;
     padding: 2rem;
 }
 .login_form_active {
-    background-color: #97DAE8;
+		background-color: white;
+		opacity: 100%;		
 }
-
 input:focus {
 	background-color: #DBF0EF
 }

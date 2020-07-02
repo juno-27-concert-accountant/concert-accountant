@@ -1,6 +1,7 @@
 import React, {Component, Fragment} from 'react';
 import firebase from './firebase';
 
+
 class Landing extends Component {
   constructor() {
       super();
