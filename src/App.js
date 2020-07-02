@@ -11,15 +11,40 @@ import ConcertCard from './ConcertCard.js';
 import Landing from './Landing.js'
 
 
-
 class App extends Component {
+	constructor() {
+		super();
+		this.state = {
+			newName: '',
+            newList: '',
+			newBudget: '',
+			published: false,
+			userSessionKey: ''
+		}
+	}
+	handleInputChange = (e) => {
+		this.setState({
+			[e.target.name]: e.target.value
+		})
+	}
+	handleSubmit = (e) => {
+        e.preventDefault();
+        const dbRef = firebase.database().ref();
+        const key = dbRef.push(this.state).getKey();
+        console.log(key);
+        this.setState({
+			newList: '',
+			newBudget: '',
+			userSessionKey: key
+        })
+	}
 	render() {
 		return (
 			<Router basename="/">
 			<div className="App">
 				<header>
       				<Navbar/>
-					<Landing/>
+					<Landing handleInputChange={this.handleInputChange} handleSubmit={this.handleSubmit} data={this.state}/>
 				</header>
 			<Search />
       		<Route path="/login/" component={Login} />
