@@ -9,7 +9,7 @@
 html {
 	font-family: 'Montserrat', sans-serif;
 	color: #0A0909;
-	background-color: #FAF9F9;
+	font-size: 10px;
 }
 body {
 	font-size: 1.6rem;
@@ -53,6 +53,10 @@ header {
 	max-width: 1500px;
 	margin: auto;
 }
+button {
+	background-color: #faf9f9;
+	transition: background-color ease-in-out 0.35s;
+}
 .header__wrapper {
 	display: flex;
 	flex-direction: row;
@@ -79,6 +83,7 @@ header {
 	flex-direction: column;
 	justify-content: space-around;
 }
+
 .modal__back {
 	position: fixed;
 	top: 0;
@@ -99,3 +104,4 @@ header {
 	height: 20%;
 	width: 50%;
 }
+
