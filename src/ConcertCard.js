@@ -5,12 +5,9 @@ import "./ConcertCard.css";
 import ConcertDetailsPopUp from './ConcertDetailsPopUp';
 
 class ConcertCard extends Component {
-	constructor({city, artist}) {
+	constructor() {
 		super();
-
 		this.state = {
-			currentCity: city || "",
-			artist: artist || "",
 			event: [],
 			modalEvent: "",
 			filteredResults: [],
@@ -19,8 +16,7 @@ class ConcertCard extends Component {
 		};
 
 		
-	}
-
+	};
 	// Function to convert date from YYYY-MM-DD format to Weekday Month Day Year format
 	dateConvert(d) {
 		let newDate = new Date(d);
@@ -183,8 +179,8 @@ class ConcertCard extends Component {
 				apikey: "Mh0RGGBfkgADAASrXM25WfhUueio9rgV",
 				// locale: "en-us",
 				segmentName: "music",
-				city: this.state.currentCity,
-				keyword: this.state.artist,
+				city: this.props.data.location[0],
+				keyword: this.props.data.artist,
 			}
 		}).then(response => {
 			
