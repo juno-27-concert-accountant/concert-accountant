@@ -83,11 +83,11 @@ class Login extends Component {
                 <form>
                     <fieldset onChange={this.handleRadioChange} value={userNew}>
                         <div className={userNew ? "login_form_active login_radio" : "login_radio"}>
-                            <label htmlFor="signUp">Sign Up</label>
+                            <label htmlFor="signUp"><h4>Sign Up</h4></label>
                             <input className="sr-only" type="radio" name="userNew" id="signUp" value="true"/>
                         </div>
                         <div className={!userNew ? "login_form_active login_radio" : "login_radio"}>
-                            <label htmlFor="logIn">Log In</label>
+                            <label htmlFor="logIn"><h4>Log In</h4></label>
                             <input className="sr-only" type="radio" name="userNew" id="logIn" value="false"/>
                         </div>
                     </fieldset>

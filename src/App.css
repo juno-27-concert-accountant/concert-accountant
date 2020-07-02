@@ -9,6 +9,7 @@
 html {
 	font-family: 'Montserrat', sans-serif;
 	color: #0A0909;
+	font-size: 10px;
 }
 body {
 	font-size: 1.6rem;
@@ -44,18 +45,10 @@ hr {
 	max-width: 1500px;
 	margin: auto;
 }
-<<<<<<< HEAD
-
 button {
 	background-color: #faf9f9;
 	transition: background-color ease-in-out 0.35s;
 }
-
-/* button:hover,
-button:focus {
-	background-color: #DBF0EF;
-} */
-=======
 .header__wrapper {
 	display: flex;
 	flex-direction: row;
@@ -81,4 +74,3 @@ button:focus {
 	flex-direction: column;
 	justify-content: space-around;
 }
->>>>>>> 9cbcca3dd4b68d6c857fdbdb3e73a4ae195fe10a

@@ -20,3 +20,9 @@
 	border: 1px solid #C0C8F0;
 	background-color: #DBF0EF;
 }
+
+.search {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}

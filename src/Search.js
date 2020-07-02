@@ -84,7 +84,7 @@ handleSubmit = (e) => {
         const {userLocation, userArtist, displayDropdown, cityNames, data} = this.state;
         return(
             <Fragment>
-                <div className="search ">
+                <div className="search wrapper">
                     <form className="wrapper">
                         <label htmlFor="userLocation">Location</label>
                         <span className="input__container">
