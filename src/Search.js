@@ -11,7 +11,8 @@ class Search extends Component {
           userLocationSplit: [],
           userLocation: '',
           userArtist: '',
-          displayDropdown: false
+					displayDropdown: false,
+					userCity: '',
       }
   }
 
@@ -63,7 +64,13 @@ handleLocation = (e) => {
     })
 }
 handleSubmit = (e) => {
-    e.preventDefault();
+		e.preventDefault();
+		
+		this.setState({
+			count: this.state.count++,
+			city: this.state.userLocationSplit[0],
+			artist: this.state.userArtist,
+		})
 }
     render() {
         const {userLocation, userArtist, displayDropdown, cityNames} = this.state;
@@ -89,10 +96,16 @@ handleSubmit = (e) => {
                         <button onClick={this.handleSubmit}>Search</button>
                     </form>
                 </div>
-                <ConcertCard />
+								{
+                	this.state.userCity || this.state.artist
+									? <ConcertCard city={this.state.city} artist={this.state.artist} />
+									: null
+								}
+					{console.log(this.state.city, "userCity")}
             </Fragment>
         )
-    }
+		}
+		
 }
 
 export default Search;

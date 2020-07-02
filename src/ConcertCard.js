@@ -2,19 +2,23 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import "./ConcertCard.css";
+import ConcertDetailsPopUp from './ConcertDetailsPopUp';
 
 class ConcertCard extends Component {
-	constructor() {
+	constructor({city, artist}) {
 		super();
 
 		this.state = {
-			currentCity: "Toronto",
+			currentCity: city || "",
+			artist: artist || "",
 			event: [],
 			modalEvent: "",
 			filteredResults: [],
 			isFiltered: false,
 			filterPrice: "0",
 		};
+
+		
 	}
 
 	// Function to convert date from YYYY-MM-DD format to Weekday Month Day Year format
@@ -119,14 +123,9 @@ class ConcertCard extends Component {
 		return (
 					
 			<div key={entry.eventID} className="concertCell">
+				<Link to={`/event/${entry.eventID}`}>
 				<div className="imageContainer">
-
-
-
-					<Link to={`/event/${entry.eventID}`}>
-							<img src={entry.imgUrl} alt={entry.name} />
-					</Link>
-
+					<img src={entry.imgUrl} alt={entry.name} />	
 				</div>
 				<div className="concertInfo">
 					<h2>{entry.name}</h2>
@@ -138,6 +137,8 @@ class ConcertCard extends Component {
 						: <p>Prices starting as low as ${entry.price.min}</p>
 					}
 				</div>
+			</Link>
+				
 			</div>
 		)
 	}
@@ -173,18 +174,25 @@ class ConcertCard extends Component {
 		this.filterResults();
 	}
 
-	componentDidMount() {
-		axios({
+	runAxios() {
+				axios({
 			url: "https://app.ticketmaster.com/discovery/v2/events",
 			method: "GET",
 			responseType: "JSON",
 			params: {
 				apikey: "Mh0RGGBfkgADAASrXM25WfhUueio9rgV",
-				locale: "en-us",
+				// locale: "en-us",
 				segmentName: "music",
 				city: this.state.currentCity,
+				keyword: this.state.artist,
 			}
 		}).then(response => {
+			
+			if (!response.data._embedded) {
+				alert("No valid results");
+				window.location.reload(false);
+			}
+
 			const res = response.data._embedded.events;
 			
 			const resEvent = this.mapToAppData(res);
@@ -193,6 +201,35 @@ class ConcertCard extends Component {
 				event: resEvent,
 			})
 		})
+	}
+
+	componentDidUpdate() {
+		this.runAxios();
+	}
+
+	componentDidMount() {
+		this.runAxios();
+		// axios({
+		// 	url: "https://app.ticketmaster.com/discovery/v2/events",
+		// 	method: "GET",
+		// 	responseType: "JSON",
+		// 	params: {
+		// 		apikey: "Mh0RGGBfkgADAASrXM25WfhUueio9rgV",
+		// 		// locale: "en-us",
+		// 		segmentName: "music",
+		// 		city: this.state.currentCity,
+		// 		keyword: this.state.artist,
+		// 	}
+		// }).then(response => {
+			
+		// 	const res = response.data._embedded.events;
+			
+		// 	const resEvent = this.mapToAppData(res);
+
+		// 	this.setState({
+		// 		event: resEvent,
+		// 	})
+		// })
 	}
 
 	render() {
