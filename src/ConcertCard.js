@@ -167,8 +167,23 @@ class ConcertCard extends Component {
 	}
 
 	runAxios() {
-		let city = this.props.data.location[0] || "Toronto";
-		let keyword = this.props.data.artist || "";
+		// let city = this.props.data.location[0] || "Toronto";
+		// let keyword = this.props.data.artist || "";
+
+		let city = "";
+		let keyword = "";
+
+		if (this.props.data === undefined) {
+			city = "Toronto";
+		} else {
+			city = this.props.data.location[0]
+		}
+
+		if (this.props.data === undefined) {
+			keyword = "";
+		} else {
+			keyword = this.props.data.artist
+		}
 
 		axios({
 			url: "https://app.ticketmaster.com/discovery/v2/events",
@@ -177,9 +192,7 @@ class ConcertCard extends Component {
 			params: {
 				apikey: "Mh0RGGBfkgADAASrXM25WfhUueio9rgV",
 				segmentName: "music",
-				// city: this.props.data.location[0],
 				city,
-				// keyword: this.props.data.artist,
 				keyword,
 			}
 		}).then(response => {

@@ -20,7 +20,8 @@ class App extends Component {
       		<Navbar />
 
 					<Search/>
-      		<Route path="/login/" component={Login} />
+      		<Route exact path="/login/" component={Login} />
+					
 					{/* <Route exact path="/event/" component={ConcertCard} /> */}
 
 					{/* Show concert details */}

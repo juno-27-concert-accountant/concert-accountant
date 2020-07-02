@@ -1,4 +1,5 @@
 import React, {Component, Fragment} from 'react';
+import { Route, Link } from 'react-router-dom';
 import axios from 'axios';
 import ConcertCard from './ConcertCard';
 import './Search.css'
@@ -75,7 +76,6 @@ handleSubmit = (e) => {
             userLocation: '',
             userArtist: '',
         })
-        console.log(this.state.data)
 }
     render() {
         const {userLocation, userArtist, displayDropdown, cityNames, data} = this.state;
@@ -98,11 +98,20 @@ handleSubmit = (e) => {
                         </span>
                         <label htmlFor="userArtist">Artist</label>
                         <input onChange={this.handleInputChange} type="text" name="userArtist" value={userArtist}/>
-                        <button onClick={this.handleSubmit}>Search</button>
+                        
+													<button onClick={this.handleSubmit}>
+													<Link to="/event/">
+													Search
+													</Link></button>
+												
                     </form>
                 </div>
-								
-                {data.location || data.artist ? <ConcertCard data={data}/>: null}
+
+								{data.location || data.artist 
+								? <Route exact path="/event/">
+										<ConcertCard data={data} />
+									</Route> 
+								: null }
 
             </Fragment>
         )
