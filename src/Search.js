@@ -101,8 +101,8 @@ handleSubmit = (e) => {
                         <button onClick={this.handleSubmit}>Search</button>
                     </form>
                 </div>
-                {console.log(data)}
-                {data.location ? <ConcertCard data={data}/>: null}
+								
+                {data.location || data.artist ? <ConcertCard data={data}/>: null}
 
             </Fragment>
         )

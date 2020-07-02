@@ -89,9 +89,9 @@ class ConcertDetailsPopUp extends Component {
 					</div>
 					<div className="modalEvent">
 						<div className="modalEventDetails">
-							{/* { */}
-								{/* this.state.modalEvent.status === "CANCELLED" */}
-								{/* ? <h3>{this.state.modalEvent.status}</h3> : */}
+							{
+								this.state.modalEvent.status === "CANCELLED"
+								? <h3>{this.state.modalEvent.status}</h3> :
 								<>
 									<h3>{this.state.modalEvent.status}</h3>
 									<h3>Tickets start at </h3>
@@ -107,6 +107,7 @@ class ConcertDetailsPopUp extends Component {
 										)})}
 									</ul>
 								</>
+							}
 							
 							
 							
