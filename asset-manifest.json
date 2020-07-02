@@ -1,22 +1,22 @@
 {
   "files": {
     "main.css": "/concert-accountant/static/css/main.0632014a.chunk.css",
-    "main.js": "/concert-accountant/static/js/main.44a6abc2.chunk.js",
-    "main.js.map": "/concert-accountant/static/js/main.44a6abc2.chunk.js.map",
+    "main.js": "/concert-accountant/static/js/main.8f8f29cd.chunk.js",
+    "main.js.map": "/concert-accountant/static/js/main.8f8f29cd.chunk.js.map",
     "runtime-main.js": "/concert-accountant/static/js/runtime-main.cc4cdc34.js",
     "runtime-main.js.map": "/concert-accountant/static/js/runtime-main.cc4cdc34.js.map",
-    "static/js/2.f78c272d.chunk.js": "/concert-accountant/static/js/2.f78c272d.chunk.js",
-    "static/js/2.f78c272d.chunk.js.map": "/concert-accountant/static/js/2.f78c272d.chunk.js.map",
+    "static/js/2.0d454a24.chunk.js": "/concert-accountant/static/js/2.0d454a24.chunk.js",
+    "static/js/2.0d454a24.chunk.js.map": "/concert-accountant/static/js/2.0d454a24.chunk.js.map",
     "index.html": "/concert-accountant/index.html",
-    "precache-manifest.d069fb7ba6857e5e914a7f007eca0170.js": "/concert-accountant/precache-manifest.d069fb7ba6857e5e914a7f007eca0170.js",
+    "precache-manifest.0bd26b424e0c2ead1f74fed2550344c9.js": "/concert-accountant/precache-manifest.0bd26b424e0c2ead1f74fed2550344c9.js",
     "service-worker.js": "/concert-accountant/service-worker.js",
     "static/css/main.0632014a.chunk.css.map": "/concert-accountant/static/css/main.0632014a.chunk.css.map",
-    "static/js/2.f78c272d.chunk.js.LICENSE.txt": "/concert-accountant/static/js/2.f78c272d.chunk.js.LICENSE.txt"
+    "static/js/2.0d454a24.chunk.js.LICENSE.txt": "/concert-accountant/static/js/2.0d454a24.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.cc4cdc34.js",
-    "static/js/2.f78c272d.chunk.js",
+    "static/js/2.0d454a24.chunk.js",
     "static/css/main.0632014a.chunk.css",
-    "static/js/main.44a6abc2.chunk.js"
+    "static/js/main.8f8f29cd.chunk.js"
   ]
 }
