@@ -59,7 +59,7 @@ button {
 }
 .header__wrapper {
 	display: flex;
-	flex-direction: row;
+	flex-flow: row wrap;
 	align-items: center;
 	justify-content: space-between;
 	height: 80vh;
@@ -84,6 +84,23 @@ button {
 	justify-content: space-around;
 }
 
+<<<<<<< HEAD
+@media (max-width: 600px) {
+	.header__left {
+		width: 100%;
+	}
+	.header__left h1 {
+		font-size: 5rem;
+		margin-bottom: 30px;
+	}
+	.header__left h2 {
+		font-size: 2rem;
+	}
+	.header__right {
+		width: 100%;
+	}
+}
+=======
 .modal__back {
 	position: fixed;
 	top: 0;
@@ -105,3 +122,4 @@ button {
 	width: 50%;
 }
 
+>>>>>>> 03cfd5854e6def1b7fb6c83b0d81db6dc545e00b

@@ -17,12 +17,12 @@ class Landing extends Component {
         return(
                 <div className="wrapper header__wrapper">
                     <section className="header__left">
-                        <h1>Concert</h1>
-                        <h1>Accountant</h1>
-                        <h2>Set your budget.</h2>
-                        <h2>Browse concerts.</h2>
-                        <h2>Add them to your list.</h2>
-                        <h2>Let us worry about the math.</h2>
+                        <h1>Concert
+                        <br/>Accountant</h1>
+                        <h2>Set your budget.
+                        <br/>Browse concerts.
+                        <br/>Add them to your list.
+                        <br/>Let us worry about the math.</h2>
                     </section>
                     <section className="header__right">
                         <h4>Start budgeting <em>now</em>:</h4>
