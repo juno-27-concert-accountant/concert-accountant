@@ -1,5 +1,5 @@
-import React, {Component, Fragment} from 'react';
-import firebase from './firebase';
+import React, {Component} from 'react';
+// import firebase from './firebase';
 
 
 class Landing extends Component {

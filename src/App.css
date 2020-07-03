@@ -26,7 +26,7 @@ label {
 	font-family: 'Maitree', serif;
 	font-size: 2rem;
 }
-h1 {
+.header__left h1 {
 	font-size: 10rem;
 }
 h2 {
