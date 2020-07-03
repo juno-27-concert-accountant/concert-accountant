@@ -105,19 +105,28 @@ class ConcertDetailsPopUp extends Component {
 								<>
 									<h3 className="modalStatus">{modalEvent.status}</h3>
 									<h3>Tickets start at ${modalEvent.minPrice}</h3>
+
+									
+
+									{/* 
+									LAST MINUTE BUG
+
 									<h3>Featuring: </h3>
 									<ul>
-
-										{modalEvent.artist.map(art => {
+									
+									{modalEvent.artist.map(art => {
 										return (
+											
 											<li key={art}>
 												<p>
 													{art}
 												</p>
-											</li>
-											
-										)})}
+											</li>											
+									)})}  
+									
 									</ul>
+									*/}
+	
 								</>
 							}
 						<h3>{modalEvent.info}</h3>

@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import "./App.css";
 import firebase from './firebase';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
-import axios from 'axios';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+
 import Navbar from './Navbar.js';
 import MyLists from './MyLists';
 import Login from './Login.js';
 import ConcertDetailsPopUp from './ConcertDetailsPopUp.js';
 import Search from './Search.js';
-import ConcertCard from './ConcertCard.js';
+
 import Landing from './Landing.js'
 
 

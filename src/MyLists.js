@@ -103,7 +103,7 @@ class MyLists extends Component {
         <ul>
           <li>
             {/* {listDetails[wishlist].name} */}
-            {console.log(wishlist.value)}
+            {/* {console.log(wishlist.value)} */}
           </li>
         </ul>
       <button onClick={this.handlePublish} name="wishlist">Publish</button>
