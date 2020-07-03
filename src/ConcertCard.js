@@ -224,13 +224,12 @@ class ConcertCard extends Component {
 		});
 	};
 	render() {
-		const {filterPrice, error} = this.state
+		const {filterPrice} = this.state
 		return (
 			<div className="wrapper">
 				<section className="budgetFilter">
 					<h2>{this.state.errorMsg}</h2>
 					<p>Filter results for your budget: </p>
-
 						
 					<select value={filterPrice} onChange={(e) => this.handleChange(e)}>
 						<option value="0">All</option>
@@ -241,8 +240,6 @@ class ConcertCard extends Component {
 					</select>
 					<button onClick={(e) => this.showFiltered(e)}>Filter</button>
 				</section>
-
-				
 
 				<section className="concertCards">
 					{

@@ -86,7 +86,8 @@ handleSubmit = (e) => {
             <Fragment>
                 <div className="search wrapper">
                     <form className="wrapper">
-                        <label htmlFor="userLocation">Location</label>
+                        <div>
+												<label htmlFor="userLocation">Location</label>
                         <span className="input__container">
                             <input onChange={this.handleInputChange} type="text" name="userLocation" value={userLocation}/>
                             {displayDropdown ? 
@@ -99,8 +100,11 @@ handleSubmit = (e) => {
                                 </div> : 
                                 null }
                         </span>
+												</div>
+												<div>
                         <label htmlFor="userArtist">Artist</label>
                         <input onChange={this.handleInputChange} type="text" name="userArtist" value={userArtist}/>
+												</div>
                         <button onClick={this.handleSubmit}>
                             <Link to="/event/">
                                 Search

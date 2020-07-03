@@ -53,7 +53,7 @@ class App extends Component {
 		return (
 			<Router basename="/">
 				<MyLists />
-			{/* <div className="App">
+			<div className="App">
 					
 					{this.state.userSessionKey ? <MyLists id={this.state.userSessionKey} /> : null}
 				<header>
@@ -63,13 +63,14 @@ class App extends Component {
 				<main>
 					<Search />
       				<Route path="/login/" component={Login} />
-					{/* <Route exact path="/event/" component={ConcertCard} /> */}
+					{/* <Route exact path="/event/" component={ConcertCard} />
 					{/* Show concert details */}
-					{/* <Route exact path="/event/:eventID" component={ConcertDetailsPopUp}>
+					{/* {/* <Route exact path="/event/:eventID" component={ConcertDetailsPopUp}> */}
+					<Route exact path="/event/:eventID">
 						<ConcertDetailsPopUp id={this.state.userSessionKey} />
-					</Route> */}
-				{/* </main> */}
-				{/* </div> */} 
+					</Route>
+				</main>
+				</div> 
 			</Router>
 		);
 
