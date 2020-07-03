@@ -64,11 +64,17 @@ class App extends Component {
 					<Search />
       				<Route path="/login/" component={Login} />
 					{/* <Route exact path="/event/" component={ConcertCard} />
+					
 					{/* Show concert details */}
-					{/* {/* <Route exact path="/event/:eventID" component={ConcertDetailsPopUp}> */}
-					<Route exact path="/event/:eventID">
-						<ConcertDetailsPopUp id={this.state.userSessionKey} />
-					</Route>
+					
+					{/* THIS ONE WORKS */}
+					<Route exact path="/event/:eventID" render={(props) => <ConcertDetailsPopUp {...props} id={this.state.userSessionKey} />} />
+					
+
+					{/* THIS ONE DOESNT WORK */}
+					{/* <Route exact path="/event/:eventID"> */}
+						{/* <ConcertDetailsPopUp id={this.state.userSessionKey} /> */}
+					{/* </Route> */}
 				</main>
 				</div> 
 			</Router>
