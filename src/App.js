@@ -56,11 +56,12 @@ class App extends Component {
 	render() {
 		return (
 			<Router basename="/">
-			<div className="App">
-					{this.state.userSessionKey ? <MyLists id={this.state.userSessionKey} /> : null}
+			 <div className="App">
+					
 				<header>
-      				<Navbar/>
-					<Landing handleInputChange={this.handleInputChange} handleSubmit={this.handleSubmit} data={this.state}/>
+            	<Navbar/>
+      				<Landing handleInputChange={this.handleInputChange} handleSubmit={this.handleSubmit} data={this.state}/>
+				      {this.state.userSessionKey ? <MyLists id={this.state.userSessionKey} /> : null}
 				</header>
 				<main>
 					<Search />
@@ -71,6 +72,7 @@ class App extends Component {
 					
 					{/* THIS ONE WORKS */}
 					<Route exact path="/event/:eventID" render={(props) => <ConcertDetailsPopUp {...props} id={this.state.userSessionKey} />} />
+
 				</main>
 				</div> 
 			</Router>
