@@ -110,7 +110,7 @@ handleSubmit = (e) => {
                 </div>
                 {data.location || data.artist ? 
                     <Route exact path="/event/">
-                    <ConcertCard data={data} />
+                    <ConcertCard data={data} /> 
                     </Route> :
                     null }
             </Fragment>

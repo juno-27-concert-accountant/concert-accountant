@@ -2,7 +2,6 @@ import React, { Component, Fragment } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import "./ConcertCard.css";
-import ConcertDetailsPopUp from './ConcertDetailsPopUp';
 
 class ConcertCard extends Component {
 	constructor() {
@@ -13,10 +12,12 @@ class ConcertCard extends Component {
 			filteredResults: [],
 			isFiltered: false,
 			filterPrice: "0",
-			error: false
-		};		
+			error: "",
+			errorMsg: "",
+			searchCity: "",
+			searchArtist: "",
+		};	
 	};
-
 	// Function to convert date from YYYY-MM-DD format to Weekday Month Day Year format
 	dateConvert(d) {
 		let newDate = new Date(d);
@@ -35,7 +36,6 @@ class ConcertCard extends Component {
 				currency: data.priceRanges[0].currency,
 				min: `${data.priceRanges[0].min.toFixed(2)}`,
 				max: `${data.priceRanges[0].max.toFixed(2)}`,
-				
 			})
 		} else {
 			return ({
@@ -48,7 +48,8 @@ class ConcertCard extends Component {
 	}
 
 	// Function to parse data
-	mapToAppData(res)  {
+	mapToAppData(response)  {
+		const res = response.data._embedded.events;
 		const resEvent = res.map( (data) => {
 			// To get ID
 			const eventID = data.id;
@@ -167,24 +168,20 @@ class ConcertCard extends Component {
 	}
 
 	runAxios() {
-		// let city = this.props.data.location[0] || "Toronto";
-		// let keyword = this.props.data.artist || "";
-
+		
 		let city = "";
 		let keyword = "";
 
-		if (this.props.data === undefined) {
+		if (this.props.data.loca === undefined) {
 			city = "Toronto";
 		} else {
-			city = this.props.data.location[0]
+			city = this.props.data.location[0];
 		}
-
-		if (this.props.data === undefined) {
+		if (this.props.data.artist === undefined) {
 			keyword = "";
 		} else {
-			keyword = this.props.data.artist
+			keyword = this.props.data.artist;
 		}
-
 		axios({
 			url: "https://app.ticketmaster.com/discovery/v2/events",
 			method: "GET",
@@ -196,45 +193,44 @@ class ConcertCard extends Component {
 				keyword,
 			}
 		}).then(response => {
-			
-			if (!response.data._embedded) {
-				let error = !this.state.error;
-				
-				this.setState({
-					error,
-
-				})
-			} else {
-				const res = response.data._embedded.events;
-				const resEvent = this.mapToAppData(res);
+			if ("_embedded" in response.data) {
+				const resEvent = this.mapToAppData(response);
 				this.setState({
 					event: resEvent,
-				})
+					error: false,
+					errorMsg: "",
+				});
+			} else {
+				this.setState({
+					error: true,
+					errorMsg: "Oh no! There were no matching results!"
+				});
+				this.props.data.location[0] = "";
+				this.props.data.artist = "";
+				
 			}
-
-		})
-	}
-
-	componentDidUpdate() {
-		this.runAxios();
-	}
-
+		});
+	};
 	componentDidMount() {
 		this.runAxios();
-	}
+	};
+	componentDidUpdate() {
+		this.runAxios();
+	};
 	handleError = (e) => {
 		e.preventDefault();
 		this.setState({
-			error: false
-		})
+			error: false,
+		});
 	};
-
 	render() {
 		const {filterPrice, error} = this.state
 		return (
 			<div className="wrapper">
 				<section className="budgetFilter">
+					<h2>{this.state.errorMsg}</h2>
 					<p>Filter results for your budget: </p>
+
 						
 					<select value={filterPrice} onChange={(e) => this.handleChange(e)}>
 						<option value="0">All</option>
@@ -245,18 +241,9 @@ class ConcertCard extends Component {
 					</select>
 					<button onClick={(e) => this.showFiltered(e)}>Filter</button>
 				</section>
-				{ error ? 
-				<Fragment>
-					<div className="modal__back">
-						<div className="modal__front">
-							<h4>Error</h4>
-							<hr/>
-							<p>No results found</p>
-							<button onClick={this.handleError}>Close</button>
-						</div>
-					</div>
-				</Fragment> :
-				null }
+
+				
+
 				<section className="concertCards">
 					{
 						this.state.isFiltered === false ?
@@ -265,8 +252,7 @@ class ConcertCard extends Component {
 					}
 				</section>
 			</div>
-		)
-	
-}}
+		);
+}};
 
 export default ConcertCard;
