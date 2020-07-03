@@ -1,28 +1,22 @@
 .modalContent h1 {
 	font-size: 4rem;
-	
 }
-
 .modalContent h2 {
 	font-size: 2rem;
 	margin: 2% 0px;
 }
-
 .modalContent h3 {
 	font-size: 1.5rem;
 	line-height: 2rem;
 	margin: 5px auto;
 }
-
 .modalContent .modalStatus {
 	font-size: 3rem;
 	margin-bottom: 10px;
 }
-
 .modalImage {
 	margin: 5% auto;
 }
-
 .modalEvent {
 	display: flex;
 	justify-content: space-between;
@@ -68,4 +62,18 @@
 
 .modalImage img {
 	width: 100%;
+}
+
+@media (max-width: 600px) {
+	.modalEvent {
+		flex-direction: column-reverse;
+	}
+	.modalButtons {
+		flex-flow: row wrap;
+		width: 100%;
+		justify-content: space-evenly;
+	}
+	.modalImage {
+		width: 100%;
+	}
 }

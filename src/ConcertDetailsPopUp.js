@@ -35,15 +35,27 @@ class ConcertDetailsPopUp extends Component {
 			}
 		}).then(response => {			
 			const res = response.data;
-			console.log(res)
 
 			const dateStr = res.dates.start.localDate;
 			const dateFormat = this.dateConvert(dateStr);
-			const minPrice = res.priceRanges[0].min;
+			let minPrice;
+
+			if ('priceRanges' in res) {
+				minPrice = res.priceRanges[0].min;
+				minPrice = minPrice.toFixed(2);
+			} else {
+				minPrice = "0"
+			}
+
+			let artist;
+			if ("attractions" in res) {
+				res._embedded.attractions.map(art => {
+					return art.name;
+				})
+			} else {
+				artist = "N/A"
+			}
 			
-			const artist = res._embedded.attractions.map(art => {
-				return art.name;
-			})
 
 			this.setState({
 				modalEvent: {
@@ -55,7 +67,7 @@ class ConcertDetailsPopUp extends Component {
 						country: res._embedded.venues[0].country.name,
 					},
 					info: res.info,
-					minPrice: minPrice.toFixed(2),
+					minPrice,
 					date: dateFormat,
 					status: (res.dates.status.code).toUpperCase(),
 					imgUrl: res.images[0].url,
@@ -84,10 +96,10 @@ class ConcertDetailsPopUp extends Component {
 					<div className="modalEvent">
 						<div className="modalEventDetails">
 							{
-								modalEvent.status === "CANCELLED"
+								modalEvent.status === "CANCELLED" 
 								? <> 
 								<h3 className="modalStatus">{modalEvent.status}</h3> 
-								<p>Due to Covid-19, this show has been cancelled.</p>
+								<p>Due to Covid-19, this show has been cancelled or rescheduled.</p>
 								</>
 								:
 								<>
