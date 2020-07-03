@@ -30,7 +30,7 @@ class Landing extends Component {
                         <form className="header__form">
                             <label htmlFor="newName">Your name</label>
                             <input onChange={this.props.handleInputChange}  name="newName" type="text" value={newName}/>
-                            <label htmlFor="newList">Your list</label>
+                            <label htmlFor="newList">Your genre</label>
                             <input onChange={this.props.handleInputChange}  name="newList" type="text" value={newList}/>
                             <label htmlFor="newBudget">Your budget</label>
                             <input onChange={this.props.handleInputChange}  name="newBudget" type="text" value={newBudget}/>

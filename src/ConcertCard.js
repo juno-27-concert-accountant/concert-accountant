@@ -103,32 +103,28 @@ class ConcertCard extends Component {
 		return resEvent;
 	};
 	//Update this.state.filterPrice on select
-	handleChange(event) {
-
-		this.filterResults(event.target.value);
-
+	handleChange(e) {
+		this.filterResults(e.target.value);
 		this.setState({
-			filterPrice: parseFloat(event.target.value),
+			filterPrice: parseFloat(e.target.value),
 		})
 	}
 
 	renderConcertCell(entry) {
-		return (
-					
-			<div key={entry.eventID} className="concertCell">
-				<Link to={`/event/${entry.eventID}`}>
+		const {eventID, imgUrl, name, date, price} = entry;
+		return (	
+			<div key={eventID} className="concertCell">
+				<Link to={`/event/${eventID}`}>
 				<div className="imageContainer">
-
-					<img src={entry.imgUrl} alt={entry.name} />	
+					<img src={imgUrl} alt={name} />	
 
 				</div>
 				<div className="concertInfo">
-					<h2>{entry.name}</h2>
-					<p>{entry.date.dateFormat}</p>
-					
-					{entry.price.min === 'N/A' 
+					<h2>{name}</h2>
+					<p>{date.dateFormat}</p>
+					{price.min === 'N/A' 
 						? <p>No prices currently available.</p>
-						: <p>Prices starting as low as ${entry.price.min}</p>}
+						: <p>Prices starting as low as ${price.min}</p>}
 				</div>
 			</Link>
 				
@@ -151,15 +147,15 @@ class ConcertCard extends Component {
 		})
 	}
 
-	showFiltered() {
-		let isFiltered = true;
+	showFiltered(e) {
+		e.preventDefault();
+		let isFiltered;
 
 		if (this.state.filterPrice == "0") {
 			isFiltered = false;
 		} else {
 			isFiltered = true;
 		}
-
 		this.setState({
 			isFiltered,
 		})
@@ -168,20 +164,17 @@ class ConcertCard extends Component {
 	}
 
 	runAxios() {
-		
-		let city = "";
-		let keyword = "";
-
-		if (this.props.data.loca === undefined) {
+		let city;
+		let keyword;
+		if (!this.props.data) {
 			city = "Toronto";
-		} else {
-			city = this.props.data.location[0];
-		}
-		if (this.props.data.artist === undefined) {
 			keyword = "";
 		} else {
-			keyword = this.props.data.artist;
+			city = this.props.data.location[0]
+			keyword = this.props.data.artist
 		}
+
+
 		axios({
 			url: "https://app.ticketmaster.com/discovery/v2/events",
 			method: "GET",
@@ -224,7 +217,7 @@ class ConcertCard extends Component {
 		});
 	};
 	render() {
-		const {filterPrice} = this.state
+		const {filterPrice, isFiltered, event, filteredResults} = this.state
 		return (
 			<div className="wrapper">
 				<section className="budgetFilter">
@@ -243,9 +236,9 @@ class ConcertCard extends Component {
 
 				<section className="concertCards">
 					{
-						this.state.isFiltered === false ?
-						this.state.event.map(event => this.renderConcertCell(event)) :
-						this.state.filteredResults.map(event => this.renderConcertCell(event)) 
+						isFiltered === false ?
+						event.map(event => this.renderConcertCell(event)) :
+						filteredResults.map(event => this.renderConcertCell(event)) 
 					}
 				</section>
 			</div>
