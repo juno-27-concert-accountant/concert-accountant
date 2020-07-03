@@ -32,9 +32,47 @@
 	display: flex;
 	flex-flow: row wrap;
 	justify-content: space-around;
-	width: 75%;
+	
 }
+
+
 
 .search label {
 	margin-right: 30px;
 }
+
+@media (max-width: 800px) {
+	.search form {
+		flex-flow: column wrap;
+		width: 80%;
+	}
+	.search label {
+		margin-right: 0px;
+		text-align: center;
+		width: 20%;
+	}
+	.search div {
+		display: flex;
+		justify-content: space-evenly;
+		flex-flow: column wrap;
+		align-items: center;
+	}
+	.search input,
+	.search button {
+		
+		margin-bottom: 20px;
+		width: 50%;
+		min-width: 200px;
+		max-width: 250%;
+	}
+	.search button {
+		align-self: center;
+	}
+}
+
+@media (max-width: 500px) {
+	.search input {
+		width: 100%;
+	}
+}
+
