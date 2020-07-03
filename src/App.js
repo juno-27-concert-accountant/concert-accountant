@@ -4,6 +4,7 @@ import firebase from './firebase';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import axios from 'axios';
 import Navbar from './Navbar.js';
+import MyLists from './MyLists';
 import Login from './Login.js';
 import ConcertDetailsPopUp from './ConcertDetailsPopUp.js';
 import Search from './Search.js';
@@ -28,9 +29,19 @@ class App extends Component {
 		})
 	}
 	handleSubmit = (e) => {
-        e.preventDefault();
+		e.preventDefault();
+		const {newName, newList, newBudget, published} = this.state;
+		const userInfo = {
+			name: newName,
+            allLists: {
+				listName: newList,
+				published: published,
+				budgetList: true,
+				budget: newBudget,
+			},
+		};
         const dbRef = firebase.database().ref();
-        const key = dbRef.push(this.state).getKey();
+		const key = dbRef.push(userInfo).getKey();
         console.log(key);
         this.setState({
 			newList: '',
@@ -41,7 +52,10 @@ class App extends Component {
 	render() {
 		return (
 			<Router basename="/">
-			<div className="App">
+				<MyLists />
+			{/* <div className="App">
+					
+					{this.state.userSessionKey ? <MyLists id={this.state.userSessionKey} /> : null}
 				<header>
       				<Navbar/>
 					<Landing handleInputChange={this.handleInputChange} handleSubmit={this.handleSubmit} data={this.state}/>
@@ -51,9 +65,11 @@ class App extends Component {
       				<Route path="/login/" component={Login} />
 					<Route exact path="/event/" component={ConcertCard} />
 					{/* Show concert details */}
-					<Route exact path="/event/:eventID" component={ConcertDetailsPopUp} />
-				</main>
-				</div>
+					{/* <Route exact path="/event/:eventID" component={ConcertDetailsPopUp}>
+						<ConcertDetailsPopUp id={this.state.userSessionKey} />
+					</Route> */}
+				{/* </main> */}
+				{/* </div> */} 
 			</Router>
 		);
 
