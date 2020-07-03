@@ -84,7 +84,13 @@ button {
 	justify-content: space-around;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 900px) {
+	.header__left h1 {
+		font-size: 5rem;
+		margin-bottom: 30px;
+	}
+}
+@media (max-width: 700px) {
 	.header__left {
 		width: 100%;
 	}
