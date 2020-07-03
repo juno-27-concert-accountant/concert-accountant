@@ -72,11 +72,7 @@ class App extends Component {
 					
 					{/* THIS ONE WORKS */}
 					<Route exact path="/event/:eventID" render={(props) => <ConcertDetailsPopUp {...props} id={this.state.userSessionKey} />} />
-				
-					{/* THIS ONE DOESNT WORK */}
-					{/* <Route exact path="/event/:eventID"> */}
-						{/* <ConcertDetailsPopUp id={this.state.userSessionKey} /> */}
-					{/* </Route> */}
+
 				</main>
 				</div> 
 			</Router>
