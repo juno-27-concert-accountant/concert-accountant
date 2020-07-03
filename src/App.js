@@ -33,16 +33,20 @@ class App extends Component {
 		const {newName, newList, newBudget, published} = this.state;
 		const userInfo = {
 			name: newName,
-            allLists: {
-				listName: newList,
+			budgetList: {
+				name: `${newList} Concerts Under $${newBudget}`,
 				published: published,
 				budgetList: true,
 				budget: newBudget,
 			},
+			wishlist: {
+				name: 'Wishlist',
+				published: false,
+				budgetList: false,
+			}
 		};
         const dbRef = firebase.database().ref();
 		const key = dbRef.push(userInfo).getKey();
-        console.log(key);
         this.setState({
 			newList: '',
 			newBudget: '',
@@ -52,9 +56,7 @@ class App extends Component {
 	render() {
 		return (
 			<Router basename="/">
-				<MyLists />
-			{/* <div className="App">
-					
+			<div className="App">
 					{this.state.userSessionKey ? <MyLists id={this.state.userSessionKey} /> : null}
 				<header>
       				<Navbar/>
@@ -63,13 +65,12 @@ class App extends Component {
 				<main>
 					<Search />
       				<Route path="/login/" component={Login} />
-					{/* <Route exact path="/event/" component={ConcertCard} /> */}
-					{/* Show concert details */}
-					{/* <Route exact path="/event/:eventID" component={ConcertDetailsPopUp}>
+					<Route exact path="/event/" component={ConcertCard} />
+					<Route exact path="/event/:eventID" component={ConcertDetailsPopUp}>
 						<ConcertDetailsPopUp id={this.state.userSessionKey} />
-					</Route> */}
-				{/* </main> */}
-				{/* </div> */} 
+					</Route>
+				</main>
+				</div> 
 			</Router>
 		);
 
