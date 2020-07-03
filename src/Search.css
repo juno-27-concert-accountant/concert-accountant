@@ -25,4 +25,16 @@
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
+	height: 200px;
+}
+
+.search form {
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: space-around;
+	width: 75%;
+}
+
+.search label {
+	margin-right: 30px;
 }

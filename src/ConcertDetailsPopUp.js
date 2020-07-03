@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, {Component, Fragment} from "react";
 import axios from 'axios';
 import "./ConcertDetailsPopUp.css";
 
@@ -67,35 +67,36 @@ class ConcertDetailsPopUp extends Component {
 	}
 
 	render() {
+		const {modalEvent} = this.state
 		return (
 			<div className="modalContainer">
 				<div className="wrapper">
 				<div className="modalContent">
 					<div>
-						<h1>{this.state.modalEvent.name}</h1>
-						<h2> @ {this.state.modalEvent.venue}</h2>
-						<h3>{this.state.modalEvent.date}</h3>
+						<h1>{modalEvent.name}</h1>
+						<h2> @ {modalEvent.venue}</h2>
+						<h3>{modalEvent.date}</h3>
 
 						<div className="modalImage">
-							<img src={this.state.modalEvent.imgUrl} alt={this.state.modalEvent.name}/>
+							<img src={modalEvent.imgUrl} alt={modalEvent.name}/>
 						</div>
 					</div>
 					<div className="modalEvent">
 						<div className="modalEventDetails">
 							{
-								this.state.modalEvent.status === "CANCELLED"
+								modalEvent.status === "CANCELLED"
 								? <> 
-								<h3 className="modalStatus">{this.state.modalEvent.status}</h3> 
+								<h3 className="modalStatus">{modalEvent.status}</h3> 
 								<p>Due to Covid-19, this show has been cancelled.</p>
 								</>
 								:
 								<>
-									<h3 className="modalStatus">{this.state.modalEvent.status}</h3>
-									<h3>Tickets start at ${this.state.modalEvent.minPrice}</h3>
+									<h3 className="modalStatus">{modalEvent.status}</h3>
+									<h3>Tickets start at ${modalEvent.minPrice}</h3>
 									<h3>Featuring: </h3>
 									<ul>
 
-										{this.state.modalEvent.artist.map(art => {
+										{modalEvent.artist.map(art => {
 										return (
 											<li key={art}>
 												<p>
@@ -107,31 +108,19 @@ class ConcertDetailsPopUp extends Component {
 									</ul>
 								</>
 							}
-							
-							
-							
-							<h3>{this.state.modalEvent.info}</h3>
+						<h3>{modalEvent.info}</h3>
 						</div>
 						<div className="modalButtons">
 							{
-								this.state.modalEvent.status === "CANCELLED" 
-								? <button>Add to Wishlist</button>
-								: <>
-									<button>Add to Wishlist</button>
+								modalEvent.status === "CANCELLED" ?
+								<button>Add to Wishlist</button> :
+								<Fragment>
 									<button>Add to List</button>
-
-									<a href={this.state.modalEvent.tickets}>
-										<button>Buy Tickets</button>
-									</a>
-								</>
+									<button href={modalEvent.tickets}>Buy Tickets</button>
+								</Fragment>
 							}
 						</div>
 					</div>
-						
-
-
-						
-					
 				</div>
 				</div>
 			</div>

@@ -2,7 +2,6 @@ import React, { Component, Fragment } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import "./ConcertCard.css";
-import ConcertDetailsPopUp from './ConcertDetailsPopUp';
 
 class ConcertCard extends Component {
 	constructor() {
@@ -13,10 +12,12 @@ class ConcertCard extends Component {
 			filteredResults: [],
 			isFiltered: false,
 			filterPrice: "0",
-			error: false
-		};		
+			error: "",
+			errorMsg: "",
+			searchCity: "",
+			searchArtist: "",
+		};	
 	};
-
 	// Function to convert date from YYYY-MM-DD format to Weekday Month Day Year format
 	dateConvert(d) {
 		let newDate = new Date(d);
@@ -35,7 +36,6 @@ class ConcertCard extends Component {
 				currency: data.priceRanges[0].currency,
 				min: `${data.priceRanges[0].min.toFixed(2)}`,
 				max: `${data.priceRanges[0].max.toFixed(2)}`,
-				
 			})
 		} else {
 			return ({
@@ -48,7 +48,8 @@ class ConcertCard extends Component {
 	}
 
 	// Function to parse data
-	mapToAppData(res)  {
+	mapToAppData(response)  {
+		const res = response.data._embedded.events;
 		const resEvent = res.map( (data) => {
 			// To get ID
 			const eventID = data.id;
@@ -102,32 +103,28 @@ class ConcertCard extends Component {
 		return resEvent;
 	};
 	//Update this.state.filterPrice on select
-	handleChange(event) {
-
-		this.filterResults(event.target.value);
-
+	handleChange(e) {
+		this.filterResults(e.target.value);
 		this.setState({
-			filterPrice: parseFloat(event.target.value),
+			filterPrice: parseFloat(e.target.value),
 		})
 	}
 
 	renderConcertCell(entry) {
-		return (
-					
-			<div key={entry.eventID} className="concertCell">
-				<Link to={`/event/${entry.eventID}`}>
+		const {eventID, imgUrl, name, date, price} = entry;
+		return (	
+			<div key={eventID} className="concertCell">
+				<Link to={`/event/${eventID}`}>
 				<div className="imageContainer">
-
-					<img src={entry.imgUrl} alt={entry.name} />	
+					<img src={imgUrl} alt={name} />	
 
 				</div>
 				<div className="concertInfo">
-					<h2>{entry.name}</h2>
-					<p>{entry.date.dateFormat}</p>
-					
-					{entry.price.min === 'N/A' 
+					<h2>{name}</h2>
+					<p>{date.dateFormat}</p>
+					{price.min === 'N/A' 
 						? <p>No prices currently available.</p>
-						: <p>Prices starting as low as ${entry.price.min}</p>}
+						: <p>Prices starting as low as ${price.min}</p>}
 				</div>
 			</Link>
 				
@@ -150,15 +147,15 @@ class ConcertCard extends Component {
 		})
 	}
 
-	showFiltered() {
-		let isFiltered = true;
+	showFiltered(e) {
+		e.preventDefault();
+		let isFiltered;
 
 		if (this.state.filterPrice == "0") {
 			isFiltered = false;
 		} else {
 			isFiltered = true;
 		}
-
 		this.setState({
 			isFiltered,
 		})
@@ -167,23 +164,16 @@ class ConcertCard extends Component {
 	}
 
 	runAxios() {
-		// let city = this.props.data.location[0] || "Toronto";
-		// let keyword = this.props.data.artist || "";
-
-		let city = "";
-		let keyword = "";
-
-		if (this.props.data === undefined) {
+		let city;
+		let keyword;
+		if (!this.props.data) {
 			city = "Toronto";
-		} else {
-			city = this.props.data.location[0]
-		}
-
-		if (this.props.data === undefined) {
 			keyword = "";
 		} else {
+			city = this.props.data.location[0]
 			keyword = this.props.data.artist
 		}
+
 
 		axios({
 			url: "https://app.ticketmaster.com/discovery/v2/events",
@@ -196,44 +186,42 @@ class ConcertCard extends Component {
 				keyword,
 			}
 		}).then(response => {
-			
-			if (!response.data._embedded) {
-				let error = !this.state.error;
-				
-				this.setState({
-					error,
-
-				})
-			} else {
-				const res = response.data._embedded.events;
-				const resEvent = this.mapToAppData(res);
+			if ("_embedded" in response.data) {
+				const resEvent = this.mapToAppData(response);
 				this.setState({
 					event: resEvent,
-				})
+					error: false,
+					errorMsg: "",
+				});
+			} else {
+				this.setState({
+					error: true,
+					errorMsg: "Oh no! There were no matching results!"
+				});
+				this.props.data.location[0] = "";
+				this.props.data.artist = "";
+				
 			}
-
-		})
-	}
-
-	componentDidUpdate() {
-		this.runAxios();
-	}
-
+		});
+	};
 	componentDidMount() {
 		this.runAxios();
-	}
+	};
+	componentDidUpdate() {
+		this.runAxios();
+	};
 	handleError = (e) => {
 		e.preventDefault();
 		this.setState({
-			error: false
-		})
+			error: false,
+		});
 	};
-
 	render() {
-		const {filterPrice, error} = this.state
+		const {filterPrice, isFiltered, event, filteredResults} = this.state
 		return (
 			<div className="wrapper">
 				<section className="budgetFilter">
+					<h2>{this.state.errorMsg}</h2>
 					<p>Filter results for your budget: </p>
 						
 					<select value={filterPrice} onChange={(e) => this.handleChange(e)}>
@@ -245,28 +233,16 @@ class ConcertCard extends Component {
 					</select>
 					<button onClick={(e) => this.showFiltered(e)}>Filter</button>
 				</section>
-				{ error ? 
-				<Fragment>
-					<div className="modal__back">
-						<div className="modal__front">
-							<h4>Error</h4>
-							<hr/>
-							<p>No results found</p>
-							<button onClick={this.handleError}>Close</button>
-						</div>
-					</div>
-				</Fragment> :
-				null }
+
 				<section className="concertCards">
 					{
-						this.state.isFiltered === false ?
-						this.state.event.map(event => this.renderConcertCell(event)) :
-						this.state.filteredResults.map(event => this.renderConcertCell(event)) 
+						isFiltered === false ?
+						event.map(event => this.renderConcertCell(event)) :
+						filteredResults.map(event => this.renderConcertCell(event)) 
 					}
 				</section>
 			</div>
-		)
-	
-}}
+		);
+}};
 
 export default ConcertCard;

@@ -33,16 +33,20 @@ class App extends Component {
 		const {newName, newList, newBudget, published} = this.state;
 		const userInfo = {
 			name: newName,
-            allLists: {
-				listName: newList,
+			budgetList: {
+				name: `${newList} Concerts Under $${newBudget}`,
 				published: published,
 				budgetList: true,
 				budget: newBudget,
 			},
+			wishlist: {
+				name: 'Wishlist',
+				published: false,
+				budgetList: false,
+			}
 		};
         const dbRef = firebase.database().ref();
 		const key = dbRef.push(userInfo).getKey();
-        // console.log(key);
         this.setState({
 			newList: '',
 			newBudget: '',
@@ -53,22 +57,27 @@ class App extends Component {
 		return (
 			<Router basename="/">
 			 <div className="App">
-				<Landing handleInputChange={this.handleInputChange} handleSubmit={this.handleSubmit} data={this.state}/>
-				{/* <MyLists id={this.state.userSessionKey}/> */}
-				{this.state.userSessionKey ? <MyLists id={this.state.userSessionKey} /> : null}
 					
-				{/* <header>
-      				<Navbar/>
+				<header>
+            	<Navbar/>
+      				<Landing handleInputChange={this.handleInputChange} handleSubmit={this.handleSubmit} data={this.state}/>
+				      {this.state.userSessionKey ? <MyLists id={this.state.userSessionKey} /> : null}
 				</header>
 				<main>
 					<Search />
-      				<Route path="/login/" component={Login} /> */}
-					{/* <Route exact path="/event/" component={ConcertCard} /> */}
+      				<Route path="/login/" component={Login} />
+					{/* <Route exact path="/event/" component={ConcertCard} />
+					
 					{/* Show concert details */}
-					{/* <Route exact path="/event/:eventID" component={ConcertDetailsPopUp}>
-						<ConcertDetailsPopUp id={this.state.userSessionKey} />
-					</Route> */}
-				{/* </main> */}
+					
+					{/* THIS ONE WORKS */}
+					<Route exact path="/event/:eventID" render={(props) => <ConcertDetailsPopUp {...props} id={this.state.userSessionKey} />} />
+				
+					{/* THIS ONE DOESNT WORK */}
+					{/* <Route exact path="/event/:eventID"> */}
+						{/* <ConcertDetailsPopUp id={this.state.userSessionKey} /> */}
+					{/* </Route> */}
+				</main>
 				</div> 
 			</Router>
 		);

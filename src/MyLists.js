@@ -7,7 +7,6 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 class MyLists extends Component {
   constructor() {
       super();
-      // SessionID = -MBGveceho8kTcigOPXt,
       this.state = {
       	  newName: '',
           newList: '',
